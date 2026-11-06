@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "Loch.sh",
-  "description": "Loch Panel (Docker server management: containers, websites, SFTP, managed services, private networks) and the loch CLI with its MCP server.",
+  "description": "Loch Panel (Docker server management: containers, websites, SFTP, managed services, private networks), the Loch CLI with its MCP server, Loch S3 (self-hosted S3-compatible object storage), Loch Lambda Runtime (runs handlers written for AWS Lambda in plain Docker containers), Loch Queue Manager (Traefik waiting-room plugin) and Loch Deploy (deployment server for GitLab CI with OIDC tokens).",
   "folders": ["docs"],
   "excludeFolders": ["i18n", "src", "static", "build", "node_modules", "sidebars", "docker", ".github"],
   "rules": [

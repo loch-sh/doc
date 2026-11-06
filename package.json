@@ -13,6 +13,10 @@
     "write-translations": "docusaurus write-translations --locale fr",
     "version:panel": "docusaurus docs:version:panel",
     "version:cli": "docusaurus docs:version:cli",
+    "version:s3": "docusaurus docs:version:s3",
+    "version:lambda-runtime": "docusaurus docs:version:lambda-runtime",
+    "version:queue": "docusaurus docs:version:queue",
+    "version:deploy": "docusaurus docs:version:deploy",
     "screenshots": "scripts/screenshots.sh",
     "gen:cli": "scripts/gen-cli-reference.sh"
   },

@@ -19,10 +19,46 @@ const products: Product[] = [
   },
   {
     to: '/cli/',
-    title: 'loch CLI',
+    title: 'Loch CLI',
     description: (
       <Translate id="home.cli.description">
         Drive your servers from a terminal or connect an AI assistant (MCP).
+      </Translate>
+    ),
+  },
+  {
+    to: '/s3/',
+    title: 'Loch S3',
+    description: (
+      <Translate id="home.s3.description">
+        Self-hosted S3-compatible object storage, in a single binary.
+      </Translate>
+    ),
+  },
+  {
+    to: '/lambda-runtime/',
+    title: 'Loch Lambda Runtime',
+    description: (
+      <Translate id="home.lambda-runtime.description">
+        Run handlers written for AWS Lambda™ in plain Docker containers.
+      </Translate>
+    ),
+  },
+  {
+    to: '/queue/',
+    title: 'Loch Queue Manager',
+    description: (
+      <Translate id="home.queue.description">
+        A Traefik plugin that puts visitors in a waiting room when traffic exceeds capacity.
+      </Translate>
+    ),
+  },
+  {
+    to: '/deploy/',
+    title: 'Loch Deploy',
+    description: (
+      <Translate id="home.deploy.description">
+        Deploy Docker Compose stacks from GitLab CI without SSH, with short-lived OIDC tokens.
       </Translate>
     ),
   },

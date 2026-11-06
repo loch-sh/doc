@@ -9,12 +9,18 @@ const url = process.env.DOCS_URL ?? 'https://docs.loch.sh';
 const baseUrl = process.env.DOCS_BASE_URL ?? '/';
 
 // One docs instance per product, each versioned on its own releases.
-const products: {id: string; label: string}[] = [
-  {id: 'panel', label: 'Loch Panel'},
-  {id: 'cli', label: 'loch CLI'},
+// `release`: the docs describe exactly this release (default branch = tag), shown instead of "Next".
+// `nav`: short name in the top menu.
+const products: {id: string; label: string; nav: string; release?: string}[] = [
+  {id: 'panel', label: 'Loch Panel', nav: 'Panel'},
+  {id: 'cli', label: 'Loch CLI', nav: 'CLI'},
+  {id: 's3', label: 'Loch S3', nav: 'S3', release: '1.4.1'},
+  {id: 'lambda-runtime', label: 'Loch Lambda Runtime', nav: 'Lambda Runtime', release: '1.0.1'},
+  {id: 'queue', label: 'Loch Queue Manager', nav: 'Queue', release: '1.0.1'},
+  {id: 'deploy', label: 'Loch Deploy', nav: 'Deploy', release: '1.0.0'},
 ];
 
-const docsInstance = (id: string): [string, DocsOptions] => [
+const docsInstance = ({id, release}: {id: string; release?: string}): [string, DocsOptions] => [
   '@docusaurus/plugin-content-docs',
   {
     id,
@@ -25,8 +31,11 @@ const docsInstance = (id: string): [string, DocsOptions] => [
     // Read from git history: CI only (needs a full clone), keeps local builds fast.
     showLastUpdateTime: Boolean(process.env.CI),
     versions: {
-      // "Unreleased" banner only once a version has been frozen.
-      current: {label: 'Next', banner: existsSync(`${id}_versions.json`) ? 'unreleased' : 'none'},
+      // "Unreleased" banner only for "Next", once a version has been frozen.
+      current: {
+        label: release ?? 'Next',
+        banner: !release && existsSync(`${id}_versions.json`) ? 'unreleased' : 'none',
+      },
     },
   },
 ];
@@ -67,14 +76,18 @@ const config: Config = {
   ],
 
   plugins: [
-    ...products.map(({id}) => docsInstance(id)),
+    ...products.map(docsInstance),
     [
       'docusaurus-plugin-llms',
       {
         // Verbose, machine-readable layer (llms.txt, context7): English, current docs.
         docsDir: [
           {path: 'docs/panel', routeBasePath: 'panel', label: 'Loch Panel'},
-          {path: 'docs/cli', routeBasePath: 'cli', label: 'loch CLI'},
+          {path: 'docs/cli', routeBasePath: 'cli', label: 'Loch CLI'},
+          {path: 'docs/s3', routeBasePath: 's3', label: 'Loch S3'},
+          {path: 'docs/lambda-runtime', routeBasePath: 'lambda-runtime', label: 'Loch Lambda Runtime'},
+          {path: 'docs/queue', routeBasePath: 'queue', label: 'Loch Queue Manager'},
+          {path: 'docs/deploy', routeBasePath: 'deploy', label: 'Loch Deploy'},
         ],
         generateMarkdownFiles: true,
         excludeImports: true,
@@ -91,13 +104,13 @@ const config: Config = {
       title: 'Loch.sh',
       logo: {alt: 'Loch.sh', src: 'img/logo.svg'},
       items: [
-        ...products.flatMap(({id, label}) => [
+        ...products.flatMap(({id, nav}) => [
           {
             type: 'docSidebar' as const,
             docsPluginId: id,
             sidebarId: id,
             position: 'left' as const,
-            label,
+            label: nav,
           },
         ]),
         // Version dropdown of the product being read (src/theme/NavbarItem).
@@ -113,7 +126,11 @@ const config: Config = {
           title: 'Docs',
           items: [
             {label: 'Loch Panel', to: '/panel/'},
-            {label: 'loch CLI', to: '/cli/'},
+            {label: 'Loch CLI', to: '/cli/'},
+            {label: 'Loch S3', to: '/s3/'},
+            {label: 'Loch Lambda Runtime', to: '/lambda-runtime/'},
+            {label: 'Loch Queue Manager', to: '/queue/'},
+            {label: 'Loch Deploy', to: '/deploy/'},
           ],
         },
         {

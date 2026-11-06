@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
 slug: /
-title: CLI loch
+title: Loch CLI
 description: La ligne de commande loch gère des serveurs Loch Panel et lance un serveur MCP pour les assistants IA.
 ---
 
-# CLI loch
+# Loch CLI
 
 `loch` gère un ou plusieurs serveurs Loch Panel depuis un terminal. Elle lance aussi un serveur MCP, pour qu'un assistant IA utilise les mêmes fonctionnalités.
 

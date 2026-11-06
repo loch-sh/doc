@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: API keys
-description: Create an API key for the loch CLI or a script, limit its permissions and revoke it.
+description: Create an API key for the Loch CLI or a script, limit its permissions and revoke it.
 ---
 
 # API keys

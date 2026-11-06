@@ -56,7 +56,7 @@ Human pages stay short. Full lists (every flag, every variable, every scope, eve
 
 - Same file name and same structure under `i18n/fr/docusaurus-plugin-content-docs-<product>/current/`.
 - Natural French, not a word-for-word translation. Use the interface's French labels.
-- Keep in English: commands, flags, variables, scopes, code identifiers, product names (Loch Panel, loch CLI).
+- Keep in English: commands, flags, variables, scopes, code identifiers, product names (Loch Panel, Loch CLI).
 - Correct French typography: every accent, « » for quotes.
 
 ## Versions

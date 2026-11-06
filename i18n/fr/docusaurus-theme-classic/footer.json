@@ -11,9 +11,25 @@
     "message": "Loch Panel",
     "description": "The label of footer link with label=Loch Panel linking to /panel/"
   },
-  "link.item.label.loch CLI": {
-    "message": "loch CLI",
-    "description": "The label of footer link with label=loch CLI linking to /cli/"
+  "link.item.label.Loch CLI": {
+    "message": "Loch CLI",
+    "description": "The label of footer link with label=Loch CLI linking to /cli/"
+  },
+  "link.item.label.Loch S3": {
+    "message": "Loch S3",
+    "description": "The label of footer link with label=Loch S3 linking to /s3/"
+  },
+  "link.item.label.Loch Lambda Runtime": {
+    "message": "Loch Lambda Runtime",
+    "description": "The label of footer link with label=Loch Lambda Runtime linking to /lambda-runtime/"
+  },
+  "link.item.label.Loch Queue Manager": {
+    "message": "Loch Queue Manager",
+    "description": "The label of footer link with label=Loch Queue Manager linking to /queue/"
+  },
+  "link.item.label.Loch Deploy": {
+    "message": "Loch Deploy",
+    "description": "The label of footer link with label=Loch Deploy linking to /deploy/"
   },
   "link.item.label.llms.txt": {
     "message": "llms.txt",

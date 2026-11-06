@@ -1,0 +1,10 @@
+{
+  "sidebar.queue.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 'queue'"
+  },
+  "sidebar.queue.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 'queue'"
+  }
+}

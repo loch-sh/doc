@@ -1,0 +1,18 @@
+{
+  "sidebar.s3.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 's3'"
+  },
+  "sidebar.s3.category.Administration": {
+    "message": "Administration",
+    "description": "The label for category 'Administration' in sidebar 's3'"
+  },
+  "sidebar.s3.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 's3'"
+  },
+  "sidebar.s3.category.Developer guide": {
+    "message": "Guide développeur",
+    "description": "The label for category 'Developer guide' in sidebar 's3'"
+  }
+}

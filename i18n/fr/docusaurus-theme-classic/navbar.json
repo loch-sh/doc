@@ -7,16 +7,32 @@
     "message": "Loch.sh",
     "description": "The alt text of navbar logo"
   },
-  "item.label.Loch Panel": {
-    "message": "Loch Panel",
-    "description": "Navbar item with label Loch Panel"
-  },
-  "item.label.loch CLI": {
-    "message": "loch CLI",
-    "description": "Navbar item with label loch CLI"
-  },
   "item.label.loch.sh": {
     "message": "loch.sh",
     "description": "Navbar item with label loch.sh"
+  },
+  "item.label.Panel": {
+    "message": "Panel",
+    "description": "Navbar item with label Panel"
+  },
+  "item.label.CLI": {
+    "message": "CLI",
+    "description": "Navbar item with label CLI"
+  },
+  "item.label.S3": {
+    "message": "S3",
+    "description": "Navbar item with label S3"
+  },
+  "item.label.Lambda Runtime": {
+    "message": "Lambda Runtime",
+    "description": "Navbar item with label Lambda Runtime"
+  },
+  "item.label.Queue": {
+    "message": "Queue",
+    "description": "Navbar item with label Queue"
+  },
+  "item.label.Deploy": {
+    "message": "Deploy",
+    "description": "Navbar item with label Deploy"
   }
 }

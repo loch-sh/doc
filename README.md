@@ -5,7 +5,11 @@ Source of [docs.loch.sh](https://docs.loch.sh): one versioned documentation per 
 | Product | Source (EN) | French | Versions |
 |---|---|---|---|
 | Loch Panel | `docs/panel/` | `i18n/fr/docusaurus-plugin-content-docs-panel/current/` | `panel_versioned_docs/` |
-| loch CLI | `docs/cli/` | `i18n/fr/docusaurus-plugin-content-docs-cli/current/` | `cli_versioned_docs/` |
+| Loch CLI | `docs/cli/` | `i18n/fr/docusaurus-plugin-content-docs-cli/current/` | `cli_versioned_docs/` |
+| Loch S3 | `docs/s3/` | `i18n/fr/docusaurus-plugin-content-docs-s3/current/` | `s3_versioned_docs/` |
+| Loch Lambda Runtime | `docs/lambda-runtime/` | `i18n/fr/docusaurus-plugin-content-docs-lambda-runtime/current/` | `lambda-runtime_versioned_docs/` |
+| Loch Queue Manager | `docs/queue/` | `i18n/fr/docusaurus-plugin-content-docs-queue/current/` | `queue_versioned_docs/` |
+| Loch Deploy | `docs/deploy/` | `i18n/fr/docusaurus-plugin-content-docs-deploy/current/` | `deploy_versioned_docs/` |
 
 ## Run locally
 

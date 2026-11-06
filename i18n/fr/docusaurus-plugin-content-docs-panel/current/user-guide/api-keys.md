@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: Clés API
-description: Créez une clé API pour la CLI loch ou un script, limitez ses permissions et révoquez-la.
+description: Créez une clé API pour la Loch CLI ou un script, limitez ses permissions et révoquez-la.
 ---
 
 # Clés API

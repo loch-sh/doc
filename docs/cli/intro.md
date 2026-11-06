@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
 slug: /
-title: loch CLI
+title: Loch CLI
 description: The loch command line manages Loch Panel servers and runs an MCP server for AI assistants.
 ---
 
-# loch CLI
+# Loch CLI
 
 `loch` manages one or more Loch Panel servers from a terminal. It also runs an MCP server, so an AI assistant can use the same features.
 

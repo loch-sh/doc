@@ -1,0 +1,14 @@
+{
+  "sidebar.lambda-runtime.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 'lambda-runtime'"
+  },
+  "sidebar.lambda-runtime.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 'lambda-runtime'"
+  },
+  "sidebar.lambda-runtime.category.Developer guide": {
+    "message": "Guide développeur",
+    "description": "The label for category 'Developer guide' in sidebar 'lambda-runtime'"
+  }
+}

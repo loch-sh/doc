@@ -1,0 +1,18 @@
+{
+  "sidebar.deploy.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 'deploy'"
+  },
+  "sidebar.deploy.category.Administration": {
+    "message": "Administration",
+    "description": "The label for category 'Administration' in sidebar 'deploy'"
+  },
+  "sidebar.deploy.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 'deploy'"
+  },
+  "sidebar.deploy.category.Developer guide": {
+    "message": "Guide développeur",
+    "description": "The label for category 'Developer guide' in sidebar 'deploy'"
+  }
+}

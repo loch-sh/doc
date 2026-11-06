@@ -55,7 +55,7 @@ loch users demote alice@example.com
 loch users rm alice@example.com
 ```
 
-See the [loch CLI](/cli/) documentation.
+See the [Loch CLI](/cli/) documentation.
 
 ## Good to know
 

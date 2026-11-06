@@ -5,6 +5,18 @@
   "home.cli.description": {
     "message": "Pilotez vos serveurs depuis un terminal ou connectez un assistant IA (MCP)."
   },
+  "home.s3.description": {
+    "message": "Stockage objet compatible S3, auto-hébergé, en un seul binaire."
+  },
+  "home.lambda-runtime.description": {
+    "message": "Exécutez des handlers écrits pour AWS Lambda™ dans de simples conteneurs Docker."
+  },
+  "home.queue.description": {
+    "message": "Un plugin Traefik qui place les visiteurs en salle d'attente quand le trafic dépasse la capacité."
+  },
+  "home.deploy.description": {
+    "message": "Déployez des stacks Docker Compose depuis GitLab CI sans SSH, avec des jetons OIDC éphémères."
+  },
   "home.title": {
     "message": "Documentation"
   },
