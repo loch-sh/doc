@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "Loch.sh",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Loch.sh",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Loch Panel": {
+    "message": "Loch Panel",
+    "description": "Navbar item with label Loch Panel"
+  },
+  "item.label.loch CLI": {
+    "message": "loch CLI",
+    "description": "Navbar item with label loch CLI"
+  },
+  "item.label.loch.sh": {
+    "message": "loch.sh",
+    "description": "Navbar item with label loch.sh"
+  }
+}

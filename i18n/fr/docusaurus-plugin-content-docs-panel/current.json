@@ -1,0 +1,22 @@
+{
+  "version.label": {
+    "message": "Prochaine",
+    "description": "The label for version current"
+  },
+  "sidebar.panel.category.User guide": {
+    "message": "Guide utilisateur",
+    "description": "The label for category 'User guide' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Administration": {
+    "message": "Administration",
+    "description": "The label for category 'Administration' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Developer guide": {
+    "message": "Guide développeur",
+    "description": "The label for category 'Developer guide' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 'panel'"
+  }
+}

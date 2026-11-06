@@ -1,0 +1,53 @@
+{
+  "name": "loch-doc",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "yarn@4.18.0",
+  "scripts": {
+    "start": "docusaurus start",
+    "start:fr": "docusaurus start --locale fr",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear",
+    "typecheck": "tsc",
+    "write-translations": "docusaurus write-translations --locale fr",
+    "version:panel": "docusaurus docs:version:panel",
+    "version:cli": "docusaurus docs:version:cli",
+    "screenshots": "scripts/screenshots.sh",
+    "gen:cli": "scripts/gen-cli-reference.sh"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@mdx-js/react": "^3.1.0",
+    "clsx": "^2.1.1",
+    "docusaurus-plugin-llms": "0.6.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/tsconfig": "3.10.2",
+    "@docusaurus/types": "3.10.2",
+    "@playwright/test": "1.64.1",
+    "typescript": "~5.9.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0"
+  }
+}

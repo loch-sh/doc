@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "Prochaine",
+    "description": "The label for version current"
+  },
+  "sidebar.cli.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 'cli'"
+  },
+  "sidebar.cli.category.Reference": {
+    "message": "Référence",
+    "description": "The label for category 'Reference' in sidebar 'cli'"
+  },
+  "sidebar.cli.category.Commands": {
+    "message": "Commandes",
+    "description": "The label for category 'Commands' in sidebar 'cli'"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+build/
+.docusaurus/
+.cache-loader/
+.yarn/*
+!.yarn/releases
+.DS_Store
+*.log
+# Playwright session for live screenshots: never commit
+storageState*.json
+
+# Screenshots: link to the interface checkout and its build
+screenshots/.interface
+screenshots/.dist
+test-results/

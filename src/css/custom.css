@@ -1,0 +1,40 @@
+/* Loch.sh palette (see the website repository). */
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+:root {
+  --ifm-color-primary: #0e6b63;
+  --ifm-color-primary-dark: #0c6059;
+  --ifm-color-primary-darker: #0c5b54;
+  --ifm-color-primary-darkest: #0a4b45;
+  --ifm-color-primary-light: #10766d;
+  --ifm-color-primary-lighter: #117b72;
+  --ifm-color-primary-lightest: #138b81;
+  --ifm-background-color: #f6f6f2;
+  --ifm-font-color-base: #0d1b1e;
+  --ifm-font-family-base: 'Geist Variable', system-ui, sans-serif;
+  --ifm-font-family-monospace: 'Geist Mono Variable', ui-monospace, monospace;
+  --ifm-code-font-size: 92%;
+  --docusaurus-highlighted-code-line-bg: rgba(14, 107, 99, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #5fd3c4;
+  --ifm-color-primary-dark: #45cbba;
+  --ifm-color-primary-darker: #38c7b5;
+  --ifm-color-primary-darkest: #2ca698;
+  --ifm-color-primary-light: #79dbce;
+  --ifm-color-primary-lighter: #86dfd3;
+  --ifm-color-primary-lightest: #aee9e1;
+  --ifm-background-color: #071419;
+  --ifm-background-surface-color: #0d1f24;
+  --ifm-navbar-background-color: #071419;
+  --ifm-toc-border-color: #16292e;
+  --ifm-color-emphasis-300: #2a3e42;
+  --ifm-font-color-base: #e6eeed;
+  --docusaurus-highlighted-code-line-bg: rgba(95, 211, 196, 0.15);
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #071419;
+}

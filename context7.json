@@ -1,0 +1,14 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Loch.sh",
+  "description": "Loch Panel (Docker server management: containers, websites, SFTP, managed services, private networks) and the loch CLI with its MCP server.",
+  "folders": ["docs"],
+  "excludeFolders": ["i18n", "src", "static", "build", "node_modules", "sidebars", "docker", ".github"],
+  "rules": [
+    "Configure a server with `loch config <name> --url <api-url>`, select it with `loch use <name>`, then run `loch login` before any other loch command or the MCP server.",
+    "The API key scopes decide what loch and its MCP tools may do; websites, SFTP, services, networks and users require an admin profile.",
+    "Passwords are never returned by the MCP tools: the user runs `loch services reset-password` in a terminal.",
+    "Database deletion and published ports are CLI-only, not available through MCP.",
+    "When contributing to Loch Panel, pull Docker images from mirror.gcr.io, never from Docker Hub directly."
+  ]
+}
