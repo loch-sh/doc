@@ -89,6 +89,8 @@ Dans les tableaux, **Scope** est le scope de clé API vérifié par la route ; �
 
 Les admins voient toutes les tâches. Les utilisateurs restreints voient, modifient et suppriment toutes les tâches HTTP et les tâches Docker de leurs conteneurs ; ils ne peuvent créer que des tâches Docker sur ces conteneurs.
 
+Types de tâches : `docker_action`, `docker_exec`, `http` et `function_invoke`. Une tâche `function_invoke` (`functionInvoke: {function, event}`, événement de 64 Kio au plus, `{}` par défaut) est réservée aux admins ; la créer, la modifier ou la lancer demande aussi `functions:invoke`. 5 tâches au plus par fonction. Chaque tâche porte `lastSkipped` (une exécution sautée parce que la précédente tournait encore) et `disabledReason` (`FUNCTION_DELETED` quand le panel l'a désactivée).
+
 ### Utilisateurs et clés API
 
 | Méthode | Chemin | Scope | Admin | Description |
@@ -172,9 +174,34 @@ Les corps sont stricts : les champs inconnus sont refusés (`INVALID_REQUEST_BOD
 | POST | `/networks` | `networks:write` | Oui | Créer `{name, description?, subnet?}` (201) |
 | PATCH | `/networks/{name}` | `networks:write` | Oui | Modifier `{description}` |
 | DELETE | `/networks/{name}` | `networks:write` | Oui | Supprimer (204) |
-| POST | `/networks/{name}/members` | `networks:write` | Oui | Rattacher `{kind: "site" \| "instance", name}` |
-| DELETE | `/networks/{name}/members/{kind}/{member}` | `networks:write` | Oui | Détacher |
+| POST | `/networks/{name}/members` | `networks:write` | Oui | Rattacher `{kind: "site" \| "instance" \| "function", name}` ; une fonction demande aussi `functions:deploy` |
+| DELETE | `/networks/{name}/members/{kind}/{member}` | `networks:write` | Oui | Détacher ; une fonction demande aussi `functions:deploy` |
 | POST | `/networks/{name}/disconnect` | `networks:write` | Oui | Déconnecter un conteneur que le panel ne gère pas `{containerId}` (204) |
+
+### Fonctions (travail en cours)
+
+Disponible quand `FUNCTIONS_ENABLED` est activé (`/functions/config` répond toujours). Les corps sont stricts. Créer avec `env`, `networks`, `egress`, `sigv4` ou `mcpInvocable`, ou modifier `env`, `handler` ou `mcpInvocable`, demande `functions:deploy` en plus de `functions:write`.
+
+| Méthode | Chemin | Scope | Admin | Description |
+|---|---|---|---|---|
+| GET | `/functions/config` | `functions:read` | Oui | État du module, runtimes et versions, état du binaire du runtime (`runtime`, `runtimeReady`), limites, budget utilisé, valeurs par défaut |
+| GET | `/functions` | `functions:read` | Oui | Fonctions et leur état |
+| POST | `/functions` | `functions:write` | Oui | Créer `{name, runtime, runtimeVersion, handler, memoryMB?, cpus?, timeoutSeconds?, tmpSizeMB?, env?, networks?, egress?, sigv4?, mcpInvocable?}` (201) ; renvoie une seule fois les identifiants d'invocation |
+| GET | `/functions/{name}` | `functions:read` | Oui | Détails : image, variables, noms des secrets, déploiements, endpoint ; le conteneur est vérifié |
+| PATCH | `/functions/{name}` | `functions:write` | Oui | Modifier `{memoryMB?, cpus?, timeoutSeconds?, tmpSizeMB?, handler?, env?, mcpInvocable?}` ; une fonction en marche est recréée |
+| DELETE | `/functions/{name}[?purge=true]` | `functions:write` | Oui | Supprimer ; `purge` supprime une fonction modifiée hors du panel sans exécuter ses fichiers |
+| POST | `/functions/{name}/code` | `functions:deploy` | Oui | Déployer un zip (corps `application/zip` ou partie `code` d'un `multipart/form-data`), activé aussitôt (201) |
+| GET | `/functions/{name}/deployments` | `functions:read` | Oui | Déploiements conservés, du plus récent au plus ancien |
+| POST | `/functions/{name}/deployments/{id}/activate` | `functions:deploy` | Oui | Activer un déploiement conservé (204) |
+| PUT | `/functions/{name}/secrets/{key}` | `functions:deploy` | Oui | Définir un secret `{value}` (204) ; jamais renvoyé |
+| DELETE | `/functions/{name}/secrets/{key}` | `functions:deploy` | Oui | Supprimer un secret (204) |
+| POST | `/functions/{name}/credentials/rotate` | `functions:deploy` | Oui | Nouveaux identifiants d'invocation, renvoyés une seule fois ; `{sigv4}` facultatif |
+| POST | `/functions/{name}/invoke` | `functions:invoke` | Oui | Invoquer avec le corps comme événement (une valeur JSON, 6 Mio au plus) ; toujours 200 avec `{statusCode, functionError?, requestId?, durationMs, payload? \| payloadBase64?, logTail}` |
+| POST | `/functions/{name}/{action}` | `functions:write` | Oui | `start`, `stop`, `restart` (204) |
+| PUT | `/functions/{name}/networks` | `functions:deploy` | Oui | Remplacer les réseaux `{networks}` (jamais `services`) ; le conteneur est recréé |
+| PUT | `/functions/{name}/egress` | `functions:deploy` | Oui | Accès à Internet `{enabled}` |
+
+Ce que renvoie une fonction n'est pas fiable : affichez-le comme texte. Les conteneurs des fonctions sont protégés dans les routes des conteneurs : leur environnement est masqué, et shell, copie de fichiers, lecture de fichiers, tunnel de port, actions sur les conteneurs et les stacks et tâches cron Docker répondent `403 FUNCTION_CONTAINER_PROTECTED`. Leur sortie standard reste lisible par les admins.
 
 ### Journal d'audit
 

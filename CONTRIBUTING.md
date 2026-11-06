@@ -44,7 +44,7 @@ Human pages stay short. Full lists (every flag, every variable, every scope, eve
 ## Accuracy
 
 - Write only what the code or the existing docs confirm. Sources: `host-panel-api/docs/`, the READMEs, `host-panel-cli/cmd/`, `host-panel-interface/src/`.
-- The docs describe the `master` branch. Features only on `feature/*` branches (Functions, `function_invoke` jobs, `loch functions`) are out of scope for now.
+- The docs describe the `master` branch (or the product's release). Features only on `feature/*` branches are out of scope. Functions is on `master` but marked work in progress: keep the `:::caution Work in progress` notice on its pages until `docs/functions.md` says otherwise.
 - Never invent a default value, a flag or a limit. If unsure, leave it out.
 
 ## Links

@@ -37,3 +37,4 @@ loch users promote bob@example.com
 - `loch domains` lists the Traefik domains and their routing.
 - A key carries the profile of its user: an admin scope on a restricted user's key grants nothing.
 - A key can only create keys within its own scopes.
+- Function containers (`fn-*`) cannot be granted to a user.

@@ -33,6 +33,7 @@ La première personne qui se connecte devient administrateur. Les suivantes sont
 |---|---|
 | **Nombre de conteneurs** | Les conteneurs que vous voyez |
 | **Profil utilisateur** / **Profil administrateur** | Votre profil et les conteneurs auxquels vous avez accès |
+| **Aperçu des ressources** | Le nombre de vos conteneurs, stacks, tâches planifiées et clés API ; les admins voient aussi les sites, services, fonctions, réseaux privés, utilisateurs SFTP et domaines des modules activés. Cliquez sur une tuile pour ouvrir sa page |
 | **Dernières stacks déployées** | Les 5 stacks les plus récentes, avec leur état |
 | **Conteneurs en arrêt incorrect** | Jusqu'à 5 conteneurs arrêtés avec un code de sortie non nul ; cliquez sur l'un d'eux pour le retrouver dans **Conteneurs** |
 | **Derniers domaines** | Admin uniquement : les 5 derniers domaines routés |

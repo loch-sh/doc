@@ -1,12 +1,12 @@
 ---
 sidebar_position: 7
 title: Private networks
-description: Decide which websites reach which service instances with private Docker networks, attach and detach members.
+description: Decide which websites reach which service instances and functions with private Docker networks, attach and detach members.
 ---
 
 # Private networks
 
-A private network decides which websites reach which service instances. A site only sees the instances on the networks it joins.
+A private network decides which websites reach which service instances and [functions](../user-guide/functions.md). A site only sees the instances and functions on the networks it joins.
 
 :::note
 Admin only, always available from **Network → Private networks**. The shared network `services` exists when the services module is enabled.
@@ -39,7 +39,7 @@ The shared network of the services module, listed first and tagged **Shared**.
    | **Name** | 1 to 24 lowercase letters, digits or dashes, starting with a letter. Cannot be changed |
    | **Description** | Optional, 200 characters max, editable later |
    | **Addressing** | **Automatic** (Docker picks a free range) or **Manual subnet**: a private IPv4 range (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `100.64.0.0/10`), from `/16` to `/28` |
-   | **Members** | Optional: sites and instances to attach right away |
+   | **Members** | Optional: sites, instances and functions to attach right away |
 
 3. Click **Create the network**.
 
@@ -62,7 +62,7 @@ Docker's default address pools hold about 31 networks for the whole host. Extend
 
 ## Attach and detach members
 
-On the network page, click **Attach a resource** and choose a site or a service instance. To remove one, click **Detach** on its row.
+On the network page, click **Attach a resource** and choose a site, a service instance or a function. To remove one, click **Detach** on its row.
 
 <Screenshot id="networks-detail" alt="A private network page with a site and an instance, their IPv4 and the Attach a resource button" />
 
@@ -77,8 +77,9 @@ The member's **container is recreated**: a few seconds of downtime for that cont
 |---|---|
 | Site | Redeployed like a settings update. A site may have no network |
 | Instance | Restarted (up to a few minutes). An instance keeps at least one network |
+| Function | Recreated: an invocation in progress is cut. A function keeps at least one network and never joins `services` |
 
-You can also change networks from the site settings (**Networks**) or from the instance list (**Change the networks**).
+You can also change networks from the site settings (**Networks**), from the instance list (**Change the networks**) or from the **Networks** tab of a function. Attaching or detaching a function with an API key also needs `functions:deploy`.
 
 ## Delete a network
 
@@ -95,3 +96,4 @@ loch networks delete backend
 - A missing network is recreated when the API starts. One replaced outside the panel is flagged and its members are not trusted.
 - Sites on a panel network lose `NET_RAW`.
 - IPv4 only. Traffic is clear text unless the engine uses TLS.
+- Each function gets its own private network `fn-<name>` at creation. Attach to it the sites and instances that invoke the function. It is deleted with the function, unless other members still use it.

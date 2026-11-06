@@ -52,6 +52,7 @@ Loch Panel se compose de trois projets, chacun dans son propre dépôt Git, regr
 | `internal/sftpgo` | Client d'administration SFTPGo |
 | `internal/services` | Cœur des services managés ; un sous-paquet par moteur (`postgres`, `mysqlfamily`, `mongodb`, `redisfamily`, `nats`, `rabbitmq`, `elasticmq`, `mosquitto`, `s3`) |
 | `internal/networks` | Réseaux privés : registre, vérification, membres |
+| `internal/functions` | Fonctions (travail en cours) : gestionnaire, rendu compose, envoi du code, binaire du runtime, invocation |
 | `internal/registry`, `internal/releases` | Références d'images (`mirror.gcr.io`, `ghcr.io`) ; découverte des versions |
 
 L'API stocke son état dans des fichiers JSON sous `DATA_DIR` (`users.json`, `apikeys.json`, `cron.json`, `networks.json`) et écrit le journal d'audit dans `audit.log`, dans son répertoire de logs.

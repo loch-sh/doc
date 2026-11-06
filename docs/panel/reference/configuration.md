@@ -8,7 +8,7 @@ description: Every environment variable of the Loch Panel API, with its default 
 
 Every environment variable read by the API. The API also loads a `.env` file from its working directory; variables already set in the environment win. For the essentials, read [Configuration](../admin/configuration.md).
 
-Every variable is checked at startup: a missing required variable, an invalid value, an out-of-range number, an unknown variable with a known prefix (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) or a removed variable stops the API, with every problem listed.
+Every variable is checked at startup: a missing required variable, an invalid value, an out-of-range number, an unknown variable with a known prefix (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `FUNCTIONS_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) or a removed variable stops the API, with every problem listed.
 
 Booleans accept `true`, `1`, `yes`, `on` and `false`, `0`, `no`, `off`. Lists are comma-separated.
 
@@ -45,7 +45,7 @@ Booleans accept `true`, `1`, `yes`, `on` and `false`, `0`, `no`, `off`. Lists ar
 
 | Variable | Default | Description |
 |---|---|---|
-| `CRON_HTTP_TIMEOUT` | `900` | Maximum duration of an HTTP scheduled task, in seconds (1 to 86400) |
+| `CRON_HTTP_TIMEOUT` | `900` | Default and maximum duration of an HTTP scheduled task, in seconds (1 to 86400) |
 | `CRON_MAX_JOBS` | `50` | Maximum number of scheduled tasks (1 to 10000) |
 
 ## Private networks {#networks}
@@ -115,6 +115,24 @@ See [SFTP](../admin/sftp.md).
 | `SERVICES_S3_ADMIN_API_KEY` | empty | Empty: one Loch S3 instance per resource (the only mode available). Set: shared mode, not available yet, the `s3` engine is disabled |
 
 Version discovery needs outbound HTTPS to `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` and `endoflife.date`. See [Managed services](../admin/services.md).
+
+## Functions (work in progress) {#functions}
+
+| Variable | Default | Description |
+|---|---|---|
+| `FUNCTIONS_ENABLED` | `false` | Enables the functions module. Needs `HOSTING_STACKS_DIRECTORY` |
+| `FUNCTIONS_DATA_DIRECTORY` | `/data/functions` | Code, runtime binaries, secrets and references. Same path on the host and in the API container; letters, digits and `_ . / -` only; outside the stacks, sites, SFTP, services and log directories; a subdirectory of `DATA_DIR` is allowed, not `DATA_DIR` itself |
+| `FUNCTIONS_MAX` | `50` | Maximum number of functions (1 to 1000) |
+| `FUNCTIONS_MAX_MEMORY` | `3008` | Highest memory of one function, in MB (128 to 10240) |
+| `FUNCTIONS_MAX_CODE_SIZE` | `50` | Highest size of an uploaded zip, in MB (1 to 250) |
+| `FUNCTIONS_DEPLOYMENTS_KEPT` | `3` | Deployments kept per function for a rollback, the active one included (1 to 20) |
+| `FUNCTIONS_TMP_SIZE` | `512` | Default `/tmp` size of a function, in MB (16 to 10240) |
+| `FUNCTIONS_MAX_TOTAL_MEMORY` | `0` | Sum of the memory limits of every function, in MB (`0`: the memory of the Docker host) |
+| `FUNCTIONS_MAX_TOTAL_CPUS` | `0` | Sum of the CPU limits of every function (`0`: 4 × the CPUs of the Docker host) |
+| `FUNCTIONS_RUNTIME_DOWNLOAD` | `true` | Download the Loch Lambda Runtime binary from GitHub when it is missing; `false` for offline installations |
+| `FUNCTIONS_RUNTIME_SOURCE_DIR` | empty | Absolute path of a directory holding `loch-lambda-runtime-linux-<arch>`, read instead of downloading (wins over `FUNCTIONS_RUNTIME_DOWNLOAD`). It and its files must be owned by the panel's user or root and writable by nobody else |
+
+Sizes are in MB and accept a binary unit (`512M`, `1G`). The download needs outbound HTTPS to `github.com`, `release-assets.githubusercontent.com` and `objects.githubusercontent.com`. See [Functions module](../admin/functions.md).
 
 ## Removed variables {#removed}
 

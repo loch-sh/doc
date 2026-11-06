@@ -84,7 +84,7 @@ Demandez à votre assistant : *« Liste mes endpoints loch, puis les stacks du p
 
 - L'assistant ne peut faire que ce que votre clé API autorise. Pour un usage courant, utilisez une clé aux scopes limités.
 - Les mots de passe ne sont jamais renvoyés à l'assistant. Pour en réinitialiser un, lancez vous-même `loch services reset-password`.
-- La suppression d'une base de données et la publication de ports se font uniquement avec la CLI.
+- La suppression d'une base de données et la publication de ports se font uniquement avec la CLI. De même pour le déploiement des fonctions, leurs secrets et leurs identifiants : un assistant invoque seulement les fonctions marquées `--mcp-invocable`.
 - `loch ai:howto` affiche ces instructions dans le terminal.
 
 Liste complète des outils : [Outils MCP](./reference/mcp-tools.md).

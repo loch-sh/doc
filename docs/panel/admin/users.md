@@ -60,6 +60,7 @@ See the [Loch CLI](/cli/) documentation.
 ## Good to know
 
 - Access is granted by **container name**: a container recreated with the same name keeps its users; a renamed one does not.
+- Function containers (`fn-*`) can never be granted to a restricted user.
 - Containers with a `system` label are not listed in the panel.
 - An API key carries the profile of its user: a restricted user's key never reaches admin routes, whatever its scopes ([scopes](../reference/scopes.md)).
 - Deleting a user does not block their OIDC account: they get a new restricted account at their next login. Block them in the provider.

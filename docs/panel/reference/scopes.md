@@ -12,10 +12,10 @@ A scope limits what an API key can do. The interface calls them **Permissions**.
 |---|---|---|---|
 | `*` | **All permissions** | Everything the user's profile allows. Cannot be combined with other scopes | No |
 | `containers:read` | **Read (list, inspect)** | List containers and read their details (`GET /docker`, `GET /docker/{id}`) | No |
-| `containers:logs` | **Logs (download, streaming)** | Download logs, stream live logs, read a file inside a container (`/logs/**`, WebSocket `logsStart` / `logsStop`) | No |
+| `containers:logs` | **Logs (download, streaming)** | Download logs, stream live logs, read a file inside a container (`/logs/**`, WebSocket `logsStart`) | No |
 | `containers:actions` | **Actions (start, stop, restart, kill, delete)** | Container actions and stack actions (`POST /docker/{id}/{action}`, `POST /stacks/{name}/{action}`) | No |
 | `containers:shell` | **Shell (remote terminal)** | Open a terminal in a container (WebSocket `attach`) | No |
-| `containers:stats` | **Stats (real-time monitoring)** | Live CPU, RAM, network and PIDs (WebSocket `statsStart` / `statsStop`) | No |
+| `containers:stats` | **Stats (real-time monitoring)** | Live CPU, RAM, network and PIDs (WebSocket `statsStart`) | No |
 | `containers:proxy` | **Proxy (port tunnel)** | Open a port tunnel to a container (WebSocket `proxyOpen` / `streamOpen`) | No |
 | `containers:cp` | **File copy (cp)** | Download and upload files (`GET` / `PUT /docker/{id}/cp`) | No |
 | `cron` | **Cron jobs** | Every scheduled task route (`/cron/**`) | No |
@@ -28,6 +28,10 @@ A scope limits what an API key can do. The interface calls them **Permissions**.
 | `services:expose` | **Databases (publish a port)** | Publish and close the port of an instance. Not implied by `services:write` | Yes |
 | `networks:read` | **Private networks (read)** | Read private networks | Yes |
 | `networks:write` | **Private networks (create, attach, detach, delete)** | Change private networks, including the networks of a service instance | Yes |
+| `functions:read` | — | Read functions and the module configuration (`GET /functions/**`) | Yes |
+| `functions:write` | — | Create, resize, start, stop, restart and delete functions | Yes |
+| `functions:deploy` | — | Code and deployments, secrets, invoke credentials, variables, handler, networks, Internet access and MCP opt-in of a function | Yes |
+| `functions:invoke` | — | Invoke a function (`POST /functions/{name}/invoke`), and with `cron`, create, change or run a scheduled function invocation. Implied by no other scope but `*` | Yes |
 | `audit:read` | **Audit trail (read)** | Read the audit trail (`GET /audit`) | Yes |
 
 ## Rules
@@ -36,6 +40,8 @@ A scope limits what an API key can do. The interface calls them **Permissions**.
 - **Container permissions still apply**: a container scope only reaches the containers the user can access.
 - **No scope needed**: your own profile and keys (`/users/me`, `/users/me/api-keys`), and the admin routes for users and `/domains`, which check the profile only.
 - **No escalation**: a key can only create keys within its own scopes.
+- **Functions (work in progress)**: creating a function with variables, networks, Internet access, SigV4 or the MCP opt-in, or changing its variables, handler or MCP opt-in, needs both `functions:write` and `functions:deploy`.
+- **WebSocket stops**: `logsStop` and `statsStop` need no scope: they only stop a stream the connection opened.
 - **Validation**: at least one scope is required, unknown scopes are refused. Keys created before scopes existed have no scope and keep full access.
 
 ## In the interface
@@ -46,3 +52,5 @@ The **Permissions** list of the **New key** form only shows the scopes that appl
 |---|---|
 | `sftp:*`, `hosting:*`, `services:*` | You are an admin and the module is enabled (`SFTP_ENABLED`, `HOSTING_ENABLED`, `SERVICES_ENABLED`) |
 | `networks:*`, `audit:read` | You are an admin |
+
+The `functions:*` scopes are not in the form yet ("—" above): a key with **All permissions** covers them, or create the key through the API (`POST /users/me/api-keys`).

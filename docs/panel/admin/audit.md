@@ -14,7 +14,8 @@ The API records every action on the panel in `<API_LOG_DIR>/audit.log`. Only adm
 |---|---|
 | Authentication | Logins, logouts, failed logins, accounts created at first login |
 | Containers | Container and stack actions, shell, logs, file tail, port proxy, file copies |
-| Administration | Users, API keys, scheduled tasks, SFTP users, websites, managed services, private networks |
+| Administration | Users, API keys, scheduled tasks, SFTP users, websites, managed services, private networks, functions |
+| Function invocations | `function invoked`: one entry per function and per minute, with the count, errors and users; never the event or the response |
 | Every write request | `api request`: method, path, status, user, API key id, client IP |
 | Every refused request | `access denied`: 403, or 401 with an API key |
 | Sensitive reads | Container inspection (shows environment variables), site settings, file downloads and tails |

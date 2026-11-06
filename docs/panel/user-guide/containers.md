@@ -62,5 +62,6 @@ In an expanded stack, click **Monitoring** to show live CPU, RAM, network and PI
 
 - The terminal needs a TTY. If the panel says it is not available, add `tty: true` to the service in the compose file, or start the container with `-t`.
 - Containers marked as system containers are hidden from everyone, and nobody can open a shell in the panel's own API container.
+- Function containers (`fn-*`) are managed from **Serverless → Functions**: shell, file copy and actions are refused on them.
 - A user profile sees only the containers listed in its permissions; ask your administrator for more.
 - The same actions exist in the [`loch` CLI](/cli/): `loch ps`, `loch logs`, `loch shell`, `loch stats`, `loch inspect`, `loch start` / `stop` / `restart`. The CLI also copies files (`loch cp`) and opens port tunnels (`loch proxy`).

@@ -1,12 +1,12 @@
 ---
 sidebar_position: 7
 title: Réseaux privés
-description: Décidez quels sites atteignent quelles instances de services grâce à des réseaux Docker privés, attachez et détachez des membres.
+description: Décidez quels sites atteignent quelles instances de services et quelles fonctions grâce à des réseaux Docker privés, attachez et détachez des membres.
 ---
 
 # Réseaux privés
 
-Un réseau privé décide quels sites atteignent quelles instances de services. Un site ne voit que les instances des réseaux qu'il rejoint.
+Un réseau privé décide quels sites atteignent quelles instances de services et quelles [fonctions](../user-guide/functions.md). Un site ne voit que les instances et les fonctions des réseaux qu'il rejoint.
 
 :::note
 Réservé aux admins, toujours disponible depuis **Réseau → Réseaux privés**. Le réseau partagé `services` existe quand le module services est activé.
@@ -39,7 +39,7 @@ Le réseau partagé du module services, listé en premier avec le badge **Partag
    | **Nom** | 1 à 24 lettres minuscules, chiffres ou tirets, en commençant par une lettre. Non modifiable |
    | **Description** | Facultative, 200 caractères au plus, modifiable ensuite |
    | **Adressage** | **Automatique** (Docker choisit une plage libre) ou **Sous-réseau manuel** : une plage IPv4 privée (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `100.64.0.0/10`), de `/16` à `/28` |
-   | **Membres** | Facultatif : sites et instances à attacher tout de suite |
+   | **Membres** | Facultatif : sites, instances et fonctions à attacher tout de suite |
 
 3. Cliquez sur **Créer le réseau**.
 
@@ -62,7 +62,7 @@ Les pools d'adresses par défaut de Docker contiennent environ 31 réseaux pour 
 
 ## Attacher et détacher des membres
 
-Sur la page du réseau, cliquez sur **Attacher une ressource** et choisissez un site ou une instance de service. Pour en retirer un, cliquez sur **Détacher** sur sa ligne.
+Sur la page du réseau, cliquez sur **Attacher une ressource** et choisissez un site, une instance de service ou une fonction. Pour en retirer un, cliquez sur **Détacher** sur sa ligne.
 
 <Screenshot id="networks-detail" alt="La page d'un réseau privé avec un site et une instance, leur IPv4 et le bouton Attacher une ressource" />
 
@@ -77,8 +77,9 @@ Le **conteneur du membre est recréé** : quelques secondes d'interruption pour 
 |---|---|
 | Site | Redéployé comme lors d'une modification de ses réglages. Un site peut n'avoir aucun réseau |
 | Instance | Redémarrée (jusqu'à quelques minutes). Une instance garde au moins un réseau |
+| Fonction | Recréée : une invocation en cours est interrompue. Une fonction garde au moins un réseau et ne rejoint jamais `services` |
 
-Vous pouvez aussi changer les réseaux depuis les réglages du site (**Réseaux**) ou depuis la liste des instances (**Modifier les réseaux**).
+Vous pouvez aussi changer les réseaux depuis les réglages du site (**Réseaux**), depuis la liste des instances (**Modifier les réseaux**) ou depuis l'onglet **Réseaux** d'une fonction. Avec une clé d'API, attacher ou détacher une fonction demande aussi `functions:deploy`.
 
 ## Supprimer un réseau
 
@@ -95,3 +96,4 @@ loch networks delete backend
 - Un réseau manquant est recréé au démarrage de l'API. Un réseau remplacé hors du panel est signalé et ses membres ne sont plus considérés comme fiables.
 - Les sites sur un réseau du panel perdent `NET_RAW`.
 - IPv4 uniquement. Le trafic circule en clair sauf si le moteur utilise TLS.
+- Chaque fonction reçoit à sa création son propre réseau privé `fn-<name>`. Rattachez-y les sites et instances qui l'invoquent. Il est supprimé avec la fonction, sauf si d'autres membres l'utilisent encore.

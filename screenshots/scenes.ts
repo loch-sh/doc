@@ -141,6 +141,19 @@ error during container init: error mounting "/data/websites/hosted/shop/php.ini"
 [+] Running 1/1
  ✔ Container hosted-shop-web-1  Started                               1.8s`;
 
+/** Result of an invocation of the thumbs function (Test tab). */
+const THUMBS_INVOKE = {
+  statusCode: 200,
+  requestId: '8f2c41d7-5b0e-4c9a-a3f1-6d27e9b0c4a2',
+  durationMs: 184,
+  payload: JSON.stringify({bucket: 'media', key: 'in/cat.jpg', thumbnail: 'thumbs/cat-320.webp', width: 320, height: 214}),
+  logTail:
+    'START RequestId: 8f2c41d7-5b0e-4c9a-a3f1-6d27e9b0c4a2 Version: $LATEST\n' +
+    'INFO\tresizing in/cat.jpg (1920x1284) to 320 px\n' +
+    'INFO\twrote thumbs/cat-320.webp (18342 bytes)\n' +
+    'END RequestId: 8f2c41d7-5b0e-4c9a-a3f1-6d27e9b0c4a2\n',
+};
+
 export const scenes: Scene[] = [
   {id: 'home', path: '/', settle: 2500},
   {
@@ -301,6 +314,28 @@ export const scenes: Scene[] = [
         },
         net.members.find((m) => m.kind === 'instance')!,
       ];
+    },
+  },
+  {id: 'functions-list', path: '/functions', viewport: {width: 1760, height: 900}},
+  {
+    id: 'functions-create',
+    path: '/functions/new',
+    viewport: {width: 1440, height: 1500},
+    ready: async (page) => {
+      await page.getByRole('textbox', {name: /^(Name|Nom)$/}).fill('thumbnail');
+    },
+  },
+  {
+    id: 'functions-test',
+    path: '/functions/thumbs',
+    setup: (api) => {
+      api.state.invoke = () => THUMBS_INVOKE;
+    },
+    ready: async (page) => {
+      await page.getByRole('tab', {name: /^Test$/}).click();
+      await page.locator('textarea').first().fill('{"bucket": "media", "key": "in/cat.jpg"}');
+      await page.getByRole('button', {name: /(Invoke|Invoquer)$/}).click();
+      await page.getByText('thumbs/cat-320.webp').first().waitFor();
     },
   },
   {id: 'databases-postgres', path: '/databases/postgres'},

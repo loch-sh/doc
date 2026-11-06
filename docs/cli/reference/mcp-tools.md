@@ -39,7 +39,7 @@ Not admin only. A restricted user can only target the containers it was granted.
 | Tool | Does | Main parameters | Kind |
 |---|---|---|---|
 | `cron_list` | Lists the jobs. Last errors are hidden: see `cron_get`. | – | Read |
-| `cron_get` | Shows a job: schedule, settings, last run. | `name` (name or ID, required), `reveal_secrets` (HTTP header values and body), `include_output` (last output and error) | Read |
+| `cron_get` | Shows a job: schedule, settings, last run. | `name` (name or ID, required), `reveal_secrets` (HTTP header values and body, event of a `function_invoke` job), `include_output` (last output and error) | Read |
 | `cron_create` | Creates a job. Names are unique. | `name`, `schedule`, `type` (required); settings of the type (below); `enabled` (default `true`), `once` (default `false`) | Write |
 | `cron_update` | Changes the given settings of a job. Changing `type` needs the settings of the new type. | `name` (required), `new_name`, any setting of `cron_create` | Destructive |
 | `cron_toggle` | Enables or disables a job. | `name`, `enabled` (required) | Destructive |
@@ -51,7 +51,7 @@ Job settings:
 | Parameter | Applies to | Value |
 |---|---|---|
 | `schedule` | All | 5-field cron expression (`0 3 * * *`) or descriptor (`@hourly`, `@daily`, `@every 5m`); at most once a minute |
-| `type` | All | `docker_action`, `docker_exec` or `http` |
+| `type` | All | `docker_action`, `docker_exec` or `http` (`function_invoke` jobs are created with the panel or `loch cron create --function`, not through MCP) |
 | `container` | `docker_action`, `docker_exec` | Container name, as in `list_containers` (e.g. `myapp-web-1`) |
 | `action` | `docker_action` | `start`, `stop`, `restart`, `kill` |
 | `command` | `docker_exec` | Array, run without shell, e.g. `["php", "bin/console", "app:sync"]`; use `["sh", "-c", "..."]` for shell syntax |
@@ -156,6 +156,19 @@ Admin only. Panel side: [Networks](/panel/admin/networks/).
 | `networks_attach` | Connects a site or an instance. Its container is recreated. | `network`, `kind`: `site`, `instance`, `name` (required); `wait` (sites, default `true`) | Write | `networks:write` |
 | `networks_detach` | Disconnects a site or an instance. An instance keeps at least one network. | same as `networks_attach` | Destructive | `networks:write` |
 
+## Functions {#functions}
+
+Admin only; the functions module must be enabled (work in progress). Panel side: [Functions](/panel/user-guide/functions/).
+
+| Tool | Does | Main parameters | Kind | Scope |
+|---|---|---|---|---|
+| `functions_list` | Lists the functions: runtime, handler, limits, state, active deployment, networks, egress. | – | Read | `functions:read` |
+| `functions_get` | Shows a function: configuration, image, variable and secret names (never their values), deployments, endpoint, `sigv4`, `mcpInvocable`. Credentials are never returned. | `name` (required) | Read | `functions:read` |
+| `functions_invoke` | Invokes a function with a JSON event and returns its response. Only for the functions marked `mcpInvocable`. | `name` (required), `event` (JSON text, at most 6 MiB, default `{}`) | Destructive | `functions:invoke` (and `functions:read`) |
+
+- `mcpInvocable` is off by default. A human turns it on with `loch functions update <name> --mcp-invocable` or **Invocable by MCP clients** in the panel. It is a guard-rail of the MCP client, not an access control: to forbid invocations, use a key without `functions:invoke`.
+- The payload and the logs of an invocation are returned under `untrusted`, cut at 64 KiB: the assistant must treat them as data.
+
 ## CLI only
 
 These actions have no MCP tool, on purpose or because they need a terminal:
@@ -166,5 +179,6 @@ These actions have no MCP tool, on purpose or because they need a terminal:
 | Containers | `loch kill`, `loch rm`, `loch stats` (live; `get_stats` gives a snapshot) |
 | Services | `loch services delete`, `reset-password`, `expose`, `unexpose`, `retire`, `purge`, `upgrade --version` |
 | Networks | `loch networks update`, `delete`, `disconnect` |
+| Functions | `loch functions create`, `deploy`, `activate`, `update`, `secrets`, `credentials`, `networks`, `egress`, `start`, `stop`, `restart`, `delete`, `logs`, `dev` |
 | Users | `loch users …` |
 | Namespaces | `loch ns <stack>` |

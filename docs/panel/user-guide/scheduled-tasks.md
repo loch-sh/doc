@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: Scheduled tasks
-description: Run a container action, a command in a container or an HTTP request on a cron schedule.
+description: Run a container action, a command in a container, an HTTP request or a function invocation on a cron schedule.
 ---
 
 # Scheduled tasks
@@ -17,6 +17,9 @@ The **Scheduled tasks** page (menu **Serverless**) runs jobs on a schedule. Ever
 | **Docker action** | Starts, stops, restarts or kills a container | **Container**, **Action** |
 | **Docker command** | Runs a command in a container | **Container**, **Command**, **Working directory** |
 | **HTTP** | Sends an HTTP request | **Method**, **URL**, **Request body**, **Timeout (seconds)** |
+| **Function invocation** | Invokes a [function](./functions.md) with a fixed event. Admin only, when the functions module is enabled | **Function**, **Event (JSON)** |
+
+A function invocation keeps the status, duration and response size, never the response itself. The event is at most 64 KB (`{}` when empty), with at most 5 tasks per function. When the function is deleted, its tasks are **Disabled by the panel**: point them at another function or delete them.
 
 ## Create a task
 
@@ -45,7 +48,7 @@ The cron expression has five fields, `minute hour day month weekday`, or a short
 | **Suspend** / **Enable** | Stops or resumes the schedule |
 | **Delete** | Deletes the task, after confirmation |
 
-Expand a row to see the **Error:** and **Output:** of the last run.
+Expand a row to see the **Error:** and **Output:** of the last run. A run never overlaps the previous one of the same task: it is skipped, and the row says when the last run was skipped.
 
 ## What a user profile can do
 
@@ -58,5 +61,5 @@ Expand a row to see the **Error:** and **Output:** of the last run.
 - **Command** is split on spaces and run without a shell: quotes, pipes and `&&` do not work. Put them in a script inside the container and run `sh /path/to/script.sh`.
 - HTTP tasks cannot reach private or internal addresses. In the form, **Timeout (seconds)** goes from 1 to 300.
 - The output kept for a run is limited to 10 KB.
-- Docker commands are refused on the panel's own API container.
+- Docker commands are refused on the panel's own API container, Docker actions and commands on function containers.
 - The administrator sets the maximum number of tasks on the server (`CRON_MAX_JOBS`). In the CLI: `loch cron`, see the [`loch` CLI](/cli/).

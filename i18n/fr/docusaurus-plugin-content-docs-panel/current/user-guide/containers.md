@@ -62,5 +62,6 @@ Dans une stack dépliée, cliquez sur **Monitoring** pour afficher en direct le 
 
 - Le terminal a besoin d'un TTY. Si le panel indique qu'il n'est pas disponible, ajoutez `tty: true` au service dans le fichier compose, ou lancez le conteneur avec `-t`.
 - Les conteneurs marqués comme conteneurs système sont masqués pour tout le monde, et personne ne peut ouvrir de shell dans le conteneur de l'API du panel.
+- Les conteneurs des fonctions (`fn-*`) se gèrent depuis **Serverless → Fonctions** : shell, copie de fichiers et actions y sont refusés.
 - Un profil utilisateur ne voit que les conteneurs listés dans ses permissions ; demandez-en d'autres à votre administrateur.
 - Les mêmes actions existent dans la [CLI `loch`](/cli/) : `loch ps`, `loch logs`, `loch shell`, `loch stats`, `loch inspect`, `loch start` / `stop` / `restart`. La CLI copie aussi des fichiers (`loch cp`) et ouvre des tunnels de ports (`loch proxy`).

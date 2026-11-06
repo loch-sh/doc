@@ -89,6 +89,8 @@ In the tables, **Scope** is the API key scope checked by the route; "—" means 
 
 Admins see every task. Restricted users see, change and delete every HTTP task and the Docker tasks of their containers; they can only create Docker tasks on those containers.
 
+Task types: `docker_action`, `docker_exec`, `http` and `function_invoke`. A `function_invoke` task (`functionInvoke: {function, event}`, event at most 64 KiB, `{}` by default) is admin only; creating, changing or running one also needs `functions:invoke`. At most 5 tasks per function. Every task carries `lastSkipped` (a run skipped because the previous one was still running) and `disabledReason` (`FUNCTION_DELETED` when the panel disabled it).
+
 ### Users and API keys
 
 | Method | Path | Scope | Admin | Description |
@@ -172,9 +174,34 @@ Bodies are strict: unknown fields are refused (`INVALID_REQUEST_BODY`).
 | POST | `/networks` | `networks:write` | Yes | Create `{name, description?, subnet?}` (201) |
 | PATCH | `/networks/{name}` | `networks:write` | Yes | Change `{description}` |
 | DELETE | `/networks/{name}` | `networks:write` | Yes | Delete (204) |
-| POST | `/networks/{name}/members` | `networks:write` | Yes | Attach `{kind: "site" \| "instance", name}` |
-| DELETE | `/networks/{name}/members/{kind}/{member}` | `networks:write` | Yes | Detach |
+| POST | `/networks/{name}/members` | `networks:write` | Yes | Attach `{kind: "site" \| "instance" \| "function", name}`; a function also needs `functions:deploy` |
+| DELETE | `/networks/{name}/members/{kind}/{member}` | `networks:write` | Yes | Detach; a function also needs `functions:deploy` |
 | POST | `/networks/{name}/disconnect` | `networks:write` | Yes | Disconnect a container the panel does not manage `{containerId}` (204) |
+
+### Functions (work in progress)
+
+Available when `FUNCTIONS_ENABLED` is set (`/functions/config` always answers). Bodies are strict. Creating with `env`, `networks`, `egress`, `sigv4` or `mcpInvocable`, or changing `env`, `handler` or `mcpInvocable`, needs `functions:deploy` on top of `functions:write`.
+
+| Method | Path | Scope | Admin | Description |
+|---|---|---|---|---|
+| GET | `/functions/config` | `functions:read` | Yes | Module status, runtimes and versions, runtime binary state (`runtime`, `runtimeReady`), limits, budget used, defaults |
+| GET | `/functions` | `functions:read` | Yes | Functions with their state |
+| POST | `/functions` | `functions:write` | Yes | Create `{name, runtime, runtimeVersion, handler, memoryMB?, cpus?, timeoutSeconds?, tmpSizeMB?, env?, networks?, egress?, sigv4?, mcpInvocable?}` (201); returns the invoke credentials once |
+| GET | `/functions/{name}` | `functions:read` | Yes | Details: image, variables, secret names, deployments, endpoint; the container is verified |
+| PATCH | `/functions/{name}` | `functions:write` | Yes | Change `{memoryMB?, cpus?, timeoutSeconds?, tmpSizeMB?, handler?, env?, mcpInvocable?}`; a running function is recreated |
+| DELETE | `/functions/{name}[?purge=true]` | `functions:write` | Yes | Delete; `purge` removes a function edited outside the panel without running its files |
+| POST | `/functions/{name}/code` | `functions:deploy` | Yes | Deploy a zip (`application/zip` body or `multipart/form-data` part `code`), activated at once (201) |
+| GET | `/functions/{name}/deployments` | `functions:read` | Yes | Kept deployments, newest first |
+| POST | `/functions/{name}/deployments/{id}/activate` | `functions:deploy` | Yes | Activate a kept deployment (204) |
+| PUT | `/functions/{name}/secrets/{key}` | `functions:deploy` | Yes | Set a secret `{value}` (204); never returned |
+| DELETE | `/functions/{name}/secrets/{key}` | `functions:deploy` | Yes | Remove a secret (204) |
+| POST | `/functions/{name}/credentials/rotate` | `functions:deploy` | Yes | New invoke credentials, returned once; optional `{sigv4}` |
+| POST | `/functions/{name}/invoke` | `functions:invoke` | Yes | Invoke with the body as event (one JSON value, at most 6 MiB); always 200 with `{statusCode, functionError?, requestId?, durationMs, payload? \| payloadBase64?, logTail}` |
+| POST | `/functions/{name}/{action}` | `functions:write` | Yes | `start`, `stop`, `restart` (204) |
+| PUT | `/functions/{name}/networks` | `functions:deploy` | Yes | Replace the networks `{networks}` (never `services`); the container is recreated |
+| PUT | `/functions/{name}/egress` | `functions:deploy` | Yes | Internet access `{enabled}` |
+
+What a function returns is untrusted: render it as text. Function containers are protected in the container routes: their environment is masked, and shell, file copy, file tail, port tunnel, container and stack actions and cron Docker tasks answer `403 FUNCTION_CONTAINER_PROTECTED`. Their stdout logs stay readable by admins.
 
 ### Audit trail
 

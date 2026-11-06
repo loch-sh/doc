@@ -47,6 +47,7 @@ Chaque module est désactivé par défaut. Activez-le, puis renseignez ses varia
 | Sites web | `HOSTING_ENABLED=true` (exige aussi `HOSTING_TRAEFIK_NETWORK`) | [Sites web](./hosting.md) |
 | Comptes SFTP | `SFTP_ENABLED=true` (exige aussi `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](./sftp.md) |
 | Services managés | `SERVICES_ENABLED=true` | [Services managés](./services.md) |
+| Fonctions (travail en cours) | `FUNCTIONS_ENABLED=true` (nécessite aussi `HOSTING_STACKS_DIRECTORY`) | [Module Fonctions](./functions.md) |
 | Réseaux privés | Toujours disponibles | [Réseaux privés](./networks.md) |
 
 ## Vérifications au démarrage
@@ -54,10 +55,10 @@ Chaque module est désactivé par défaut. Activez-le, puis renseignez ses varia
 L'API vérifie chaque variable à son démarrage. Au moindre problème, elle **refuse de démarrer** et les journalise tous d'un coup (`invalid configuration`, une ligne par variable) :
 
 - une variable obligatoire absente, un type ou une plage de valeurs incorrects, un `COOKIE_SECRET` de moins de 32 caractères ;
-- une variable inconnue portant un préfixe connu (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) : presque toujours une faute de frappe, et le message propose le nom le plus proche ;
+- une variable inconnue portant un préfixe connu (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `FUNCTIONS_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) : presque toujours une faute de frappe, et le message propose le nom le plus proche ;
 - une variable supprimée : le message indique ce qui la remplace.
 
-Les valeurs ne sont jamais écrites dans les logs. Seules les vérifications d'installation du module services (chemins, montages, Docker) désactivent ce module sans arrêter l'API.
+Les valeurs ne sont jamais écrites dans les logs. Seules les vérifications d'installation des modules services et fonctions (chemins, montages, Docker) désactivent le module concerné sans arrêter l'API.
 
 ## Bon à savoir
 

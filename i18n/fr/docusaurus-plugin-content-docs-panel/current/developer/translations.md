@@ -22,7 +22,7 @@ L'interface est traduite avec i18next (react-i18next). L'anglais est la source :
 
 ## Fichiers
 
-Les traductions sont dans `host-panel-interface/src/i18n/locales/<langue>/<namespace>.json`, un namespace par partie de l'application : `common`, `layout`, `home`, `containers`, `domains`, `cron`, `users`, `sftp`, `hosting`, `databases`, `networks`, `apikeys`, `audit`, `errors`.
+Les traductions sont dans `host-panel-interface/src/i18n/locales/<langue>/<namespace>.json`, un namespace par partie de l'application : `common`, `layout`, `home`, `containers`, `domains`, `cron`, `users`, `sftp`, `hosting`, `databases`, `networks`, `functions`, `apikeys`, `audit`, `errors`.
 
 ## Ajouter ou modifier un texte
 

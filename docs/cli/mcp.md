@@ -84,7 +84,7 @@ Ask your assistant: *"List my loch endpoints, then the stacks on the first one."
 
 - The assistant can do only what your API key allows. Use a key with limited scopes for daily work.
 - Passwords are never returned to the assistant. To reset one, run `loch services reset-password` yourself.
-- Deleting a database and publishing ports are CLI-only.
+- Deleting a database and publishing ports are CLI-only. So are deploying functions, their secrets and credentials: an assistant only invokes the functions marked `--mcp-invocable`.
 - `loch ai:howto` prints these instructions in the terminal.
 
 Full list of tools: [MCP tools](./reference/mcp-tools.md).

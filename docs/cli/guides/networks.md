@@ -45,4 +45,4 @@ loch networks show shop
 - An instance keeps at least one network.
 - Names: lowercase letters, digits and dashes, starting with a letter, 24 characters max.
 - The subnet is optional. It must be a private IPv4 range from /16 to /28, outside the reserved ranges shown by `loch networks config`.
-- You can also set the networks at creation: `loch hosting create --network` and `loch services create --network`.
+- You can also set the networks at creation: `loch hosting create --network`, `loch services create --network` and `loch functions create --network`. The networks of a function are changed with `loch functions networks`: see [Functions](./functions.md).

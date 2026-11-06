@@ -39,7 +39,7 @@ Pas réservé aux admins. Un utilisateur restreint ne peut cibler que les conten
 | Outil | Rôle | Paramètres principaux | Nature |
 |---|---|---|---|
 | `cron_list` | Liste les tâches. Les dernières erreurs sont masquées : voir `cron_get`. | – | Lecture |
-| `cron_get` | Affiche une tâche : planification, réglages, dernière exécution. | `name` (nom ou ID, obligatoire), `reveal_secrets` (valeurs des en-têtes HTTP et corps), `include_output` (dernière sortie et erreur) | Lecture |
+| `cron_get` | Affiche une tâche : planification, réglages, dernière exécution. | `name` (nom ou ID, obligatoire), `reveal_secrets` (valeurs des en-têtes HTTP et corps, événement d'une tâche `function_invoke`), `include_output` (dernière sortie et erreur) | Lecture |
 | `cron_create` | Crée une tâche. Les noms sont uniques. | `name`, `schedule`, `type` (obligatoires) ; réglages du type (ci-dessous) ; `enabled` (par défaut `true`), `once` (par défaut `false`) | Écriture |
 | `cron_update` | Modifie les réglages fournis d'une tâche. Changer `type` demande les réglages du nouveau type. | `name` (obligatoire), `new_name`, tout réglage de `cron_create` | Destructif |
 | `cron_toggle` | Active ou désactive une tâche. | `name`, `enabled` (obligatoires) | Destructif |
@@ -51,7 +51,7 @@ Réglages d'une tâche :
 | Paramètre | S'applique à | Valeur |
 |---|---|---|
 | `schedule` | Tous | Expression cron à 5 champs (`0 3 * * *`) ou descripteur (`@hourly`, `@daily`, `@every 5m`) ; au plus une fois par minute |
-| `type` | Tous | `docker_action`, `docker_exec` ou `http` |
+| `type` | Tous | `docker_action`, `docker_exec` ou `http` (les tâches `function_invoke` se créent avec le panel ou `loch cron create --function`, pas via MCP) |
 | `container` | `docker_action`, `docker_exec` | Nom du conteneur, comme dans `list_containers` (par exemple `myapp-web-1`) |
 | `action` | `docker_action` | `start`, `stop`, `restart`, `kill` |
 | `command` | `docker_exec` | Tableau, exécuté sans shell, par exemple `["php", "bin/console", "app:sync"]` ; utilisez `["sh", "-c", "..."]` pour la syntaxe shell |
@@ -156,6 +156,19 @@ Réservé aux admins. Côté panel : [Réseaux](/panel/admin/networks/).
 | `networks_attach` | Connecte un site ou une instance. Son conteneur est recréé. | `network`, `kind` : `site`, `instance`, `name` (obligatoires) ; `wait` (sites, par défaut `true`) | Écriture | `networks:write` |
 | `networks_detach` | Déconnecte un site ou une instance. Une instance garde au moins un réseau. | comme `networks_attach` | Destructif | `networks:write` |
 
+## Fonctions {#functions}
+
+Réservé aux admins ; le module des fonctions doit être activé (travail en cours). Côté panel : [Fonctions](/panel/user-guide/functions/).
+
+| Outil | Rôle | Paramètres principaux | Nature | Scope |
+|---|---|---|---|---|
+| `functions_list` | Liste les fonctions : runtime, handler, limites, état, déploiement actif, réseaux, accès sortant. | – | Lecture | `functions:read` |
+| `functions_get` | Affiche une fonction : configuration, image, noms des variables et des secrets (jamais leurs valeurs), déploiements, endpoint, `sigv4`, `mcpInvocable`. Les identifiants ne sont jamais renvoyés. | `name` (obligatoire) | Lecture | `functions:read` |
+| `functions_invoke` | Invoque une fonction avec un événement JSON et renvoie sa réponse. Seulement pour les fonctions marquées `mcpInvocable`. | `name` (obligatoire), `event` (texte JSON, 6 Mio au plus, par défaut `{}`) | Destructif | `functions:invoke` (et `functions:read`) |
+
+- `mcpInvocable` est désactivé par défaut. Un humain l'active avec `loch functions update <nom> --mcp-invocable` ou **Invocable par les clients MCP** dans le panel. C'est un garde-fou du client MCP, pas un contrôle d'accès : pour interdire les invocations, utilisez une clé sans `functions:invoke`.
+- La réponse et les journaux d'une invocation sont renvoyés sous `untrusted`, coupés à 64 Kio : l'assistant doit les traiter comme des données.
+
 ## CLI uniquement
 
 Ces actions n'ont pas d'outil MCP, volontairement ou parce qu'elles demandent un terminal :
@@ -166,5 +179,6 @@ Ces actions n'ont pas d'outil MCP, volontairement ou parce qu'elles demandent un
 | Conteneurs | `loch kill`, `loch rm`, `loch stats` (en direct ; `get_stats` donne un instantané) |
 | Services | `loch services delete`, `reset-password`, `expose`, `unexpose`, `retire`, `purge`, `upgrade --version` |
 | Réseaux | `loch networks update`, `delete`, `disconnect` |
+| Fonctions | `loch functions create`, `deploy`, `activate`, `update`, `secrets`, `credentials`, `networks`, `egress`, `start`, `stop`, `restart`, `delete`, `logs`, `dev` |
 | Utilisateurs | `loch users …` |
 | Namespaces | `loch ns <stack>` |

@@ -8,7 +8,7 @@ description: Toutes les variables d'environnement de l'API Loch Panel, avec leur
 
 Toutes les variables d'environnement lues par l'API. L'API charge aussi un fichier `.env` dans son répertoire de travail ; les variables déjà définies dans l'environnement l'emportent. Pour l'essentiel, lisez [Configuration](../admin/configuration.md).
 
-Chaque variable est vérifiée au démarrage : une variable obligatoire absente, une valeur invalide, un nombre hors plage, une variable inconnue portant un préfixe connu (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) ou une variable supprimée arrêtent l'API, avec la liste de tous les problèmes.
+Chaque variable est vérifiée au démarrage : une variable obligatoire absente, une valeur invalide, un nombre hors plage, une variable inconnue portant un préfixe connu (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `FUNCTIONS_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`) ou une variable supprimée arrêtent l'API, avec la liste de tous les problèmes.
 
 Les booléens acceptent `true`, `1`, `yes`, `on` et `false`, `0`, `no`, `off`. Les listes sont séparées par des virgules.
 
@@ -45,7 +45,7 @@ Les booléens acceptent `true`, `1`, `yes`, `on` et `false`, `0`, `no`, `off`. L
 
 | Variable | Défaut | Description |
 |---|---|---|
-| `CRON_HTTP_TIMEOUT` | `900` | Durée maximale d'une tâche planifiée HTTP, en secondes (1 à 86400) |
+| `CRON_HTTP_TIMEOUT` | `900` | Durée par défaut et maximale d'une tâche planifiée HTTP, en secondes (1 à 86400) |
 | `CRON_MAX_JOBS` | `50` | Nombre maximal de tâches planifiées (1 à 10000) |
 
 ## Réseaux privés {#networks}
@@ -115,6 +115,24 @@ Voir [SFTP](../admin/sftp.md).
 | `SERVICES_S3_ADMIN_API_KEY` | vide | Vide : une instance Loch S3 par ressource (seul mode disponible). Définie : mode partagé, pas encore disponible, le moteur `s3` est désactivé |
 
 La découverte des versions exige un accès HTTPS sortant vers `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` et `endoflife.date`. Voir [Services managés](../admin/services.md).
+
+## Fonctions (travail en cours) {#functions}
+
+| Variable | Défaut | Description |
+|---|---|---|
+| `FUNCTIONS_ENABLED` | `false` | Active le module des fonctions. Nécessite `HOSTING_STACKS_DIRECTORY` |
+| `FUNCTIONS_DATA_DIRECTORY` | `/data/functions` | Code, binaires du runtime, secrets et références. Même chemin sur l'hôte et dans le conteneur de l'API ; lettres, chiffres et `_ . / -` uniquement ; en dehors des répertoires des stacks, des sites, de SFTP, des services et des logs ; un sous-répertoire de `DATA_DIR` est accepté, pas `DATA_DIR` lui-même |
+| `FUNCTIONS_MAX` | `50` | Nombre maximal de fonctions (1 à 1000) |
+| `FUNCTIONS_MAX_MEMORY` | `3008` | Mémoire maximale d'une fonction, en Mo (128 à 10240) |
+| `FUNCTIONS_MAX_CODE_SIZE` | `50` | Taille maximale d'un zip envoyé, en Mo (1 à 250) |
+| `FUNCTIONS_DEPLOYMENTS_KEPT` | `3` | Déploiements conservés par fonction pour revenir en arrière, l'actif compris (1 à 20) |
+| `FUNCTIONS_TMP_SIZE` | `512` | Taille par défaut de `/tmp` d'une fonction, en Mo (16 à 10240) |
+| `FUNCTIONS_MAX_TOTAL_MEMORY` | `0` | Somme des limites de mémoire de toutes les fonctions, en Mo (`0` : la mémoire de l'hôte Docker) |
+| `FUNCTIONS_MAX_TOTAL_CPUS` | `0` | Somme des limites de CPU de toutes les fonctions (`0` : 4 × les CPU de l'hôte Docker) |
+| `FUNCTIONS_RUNTIME_DOWNLOAD` | `true` | Télécharge le binaire de Loch Lambda Runtime depuis GitHub quand il manque ; `false` pour les installations hors ligne |
+| `FUNCTIONS_RUNTIME_SOURCE_DIR` | vide | Chemin absolu d'un répertoire contenant `loch-lambda-runtime-linux-<arch>`, lu au lieu du téléchargement (prioritaire sur `FUNCTIONS_RUNTIME_DOWNLOAD`). Lui et ses fichiers doivent appartenir à l'utilisateur du panel ou à root et n'être modifiables par personne d'autre |
+
+Les tailles sont en Mo et acceptent une unité binaire (`512M`, `1G`). Le téléchargement demande le HTTPS sortant vers `github.com`, `release-assets.githubusercontent.com` et `objects.githubusercontent.com`. Voir [Module Fonctions](../admin/functions.md).
 
 ## Variables supprimées {#removed}
 

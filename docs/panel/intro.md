@@ -2,7 +2,7 @@
 sidebar_position: 1
 slug: /
 title: Loch Panel
-description: Manage Docker containers, websites and managed services from a web interface, a CLI or an AI assistant.
+description: Manage Docker containers, websites, managed services and functions from a web interface, a CLI or an AI assistant.
 ---
 
 # Loch Panel
@@ -26,6 +26,7 @@ Loch Panel manages a Docker server from a web interface, the `loch` CLI or an AI
 | Websites (PHP, Nginx, Apache) | Admin | `HOSTING_ENABLED` |
 | SFTP accounts for websites | Admin | `SFTP_ENABLED` |
 | Managed services: databases, cache, messaging, storage | Admin | `SERVICES_ENABLED` |
+| Functions: handlers written for AWS Lambda™ (work in progress) | Admin | `FUNCTIONS_ENABLED` |
 | Private networks | Admin | Always on (the shared `services` network needs the services module) |
 | Audit trail | Admin | Always on |
 

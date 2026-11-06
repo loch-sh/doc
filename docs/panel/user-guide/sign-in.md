@@ -33,6 +33,7 @@ The first person to sign in becomes administrator. Everyone after is a user with
 |---|---|
 | **Number of containers** | Containers you can see |
 | **User profile** / **Administrator profile** | Your profile and the containers you can access |
+| **Resource overview** | How many containers, stacks, scheduled tasks and API keys you have; admins also see sites, services, functions, private networks, SFTP users and domains of the enabled modules. Click a tile to open its page |
 | **Latest deployed stacks** | The 5 most recent stacks, with their state |
 | **Containers that exited with an error** | Up to 5 containers stopped with a non-zero exit code; click one to find it in **Containers** |
 | **Latest domains** | Admin only: the 5 latest routed domains |

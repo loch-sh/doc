@@ -14,7 +14,8 @@ L'API enregistre chaque action effectuée sur le panel dans `<API_LOG_DIR>/audit
 |---|---|
 | Authentification | Connexions, déconnexions, échecs de connexion, comptes créés à la première connexion |
 | Conteneurs | Actions sur les conteneurs et les stacks, shell, logs, suivi de fichier, proxy de ports, copies de fichiers |
-| Administration | Utilisateurs, clés API, tâches planifiées, utilisateurs SFTP, sites web, services managés, réseaux privés |
+| Administration | Utilisateurs, clés API, tâches planifiées, utilisateurs SFTP, sites web, services managés, réseaux privés, fonctions |
+| Invocations de fonctions | `function invoked` : une entrée par fonction et par minute, avec le nombre d'invocations, les erreurs et les utilisateurs ; jamais l'événement ni la réponse |
 | Chaque requête d'écriture | `api request` : méthode, chemin, statut, utilisateur, identifiant de clé API, IP du client |
 | Chaque requête refusée | `access denied` : 403, ou 401 avec une clé API |
 | Lectures sensibles | Inspection de conteneur (elle montre les variables d'environnement), réglages d'un site, téléchargements et suivis de fichiers |

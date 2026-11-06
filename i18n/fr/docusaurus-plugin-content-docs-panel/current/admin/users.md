@@ -60,6 +60,7 @@ Voir la documentation de la [Loch CLI](/cli/).
 ## Bon à savoir
 
 - Les accès portent sur le **nom du conteneur** : un conteneur recréé sous le même nom garde ses utilisateurs, un conteneur renommé les perd.
+- Les conteneurs des fonctions (`fn-*`) ne peuvent jamais être attribués à un utilisateur restreint.
 - Les conteneurs portant le label `system` ne sont pas listés dans le panel.
 - Une clé API porte le profil de son utilisateur : la clé d'un utilisateur restreint n'atteint jamais les routes d'administration, quels que soient ses scopes ([scopes](../reference/scopes.md)).
 - Supprimer un utilisateur ne bloque pas son compte OIDC : il obtient un nouveau compte restreint à sa prochaine connexion. Bloquez-le chez le fournisseur.

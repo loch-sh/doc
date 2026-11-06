@@ -45,4 +45,4 @@ loch networks show shop
 - Une instance garde au moins un réseau.
 - Noms : lettres minuscules, chiffres et tirets, commençant par une lettre, 24 caractères au plus.
 - Le sous-réseau est facultatif. Il doit être une plage IPv4 privée de /16 à /28, hors des plages réservées affichées par `loch networks config`.
-- Vous pouvez aussi choisir les réseaux à la création : `loch hosting create --network` et `loch services create --network`.
+- Vous pouvez aussi choisir les réseaux à la création : `loch hosting create --network`, `loch services create --network` et `loch functions create --network`. Les réseaux d'une fonction se modifient avec `loch functions networks` : voir [Fonctions](./functions.md).

@@ -37,3 +37,4 @@ loch users promote bob@example.com
 - `loch domains` liste les domaines Traefik et leur routage.
 - Une clé porte le profil de son utilisateur : un scope admin sur la clé d'un utilisateur restreint ne donne rien.
 - Une clé ne peut créer que des clés dans la limite de ses propres scopes.
+- Les conteneurs des fonctions (`fn-*`) ne peuvent pas être attribués à un utilisateur.

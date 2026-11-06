@@ -28,6 +28,7 @@ Manage your Docker containers through the Host Panel API, no technical interface
 * [loch cp](loch_cp.md)	 - Copy files between local filesystem and a container
 * [loch cron](loch_cron.md)	 - Manage scheduled jobs
 * [loch domains](loch_domains.md)	 - Show Traefik domains (admin)
+* [loch functions](loch_functions.md)	 - Manage functions: handlers written for AWS Lambda (Node.js, Python, Go/Rust bootstraps) run on the endpoint
 * [loch hosting](loch_hosting.md)	 - Manage hosted web stacks (admin)
 * [loch inspect](loch_inspect.md)	 - Display detailed information on a container
 * [loch kill](loch_kill.md)	 - Kill one or more containers

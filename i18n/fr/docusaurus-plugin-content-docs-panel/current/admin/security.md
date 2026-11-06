@@ -39,12 +39,14 @@ Chaque utilisateur crée ses propres clés, pour la CLI `loch` et les scripts.
 | Scopes | Une clé peut être limitée à certaines fonctions ; elle ne peut créer que des clés dans ses propres scopes |
 
 - Supprimer un utilisateur révoque toutes ses clés.
-- Les routes d'administration (utilisateurs, domaines, sites web, SFTP, services, réseaux, audit) exigent toujours le profil admin, quels que soient les scopes.
+- Les routes d'administration (utilisateurs, domaines, sites web, SFTP, services, réseaux, fonctions, audit) exigent toujours le profil admin, quels que soient les scopes.
 - Liste complète des scopes : [scopes des clés API](../reference/scopes.md).
 
 ## Le conteneur de l'API est protégé
 
 Personne, admin compris, ne peut ouvrir un shell dans le conteneur de l'API, y copier ou en extraire des fichiers, suivre ses fichiers, ni le cibler avec une tâche planifiée `exec`. Ces opérations donneraient accès à l'audit trail. Les actions sur les stacks l'ignorent aussi.
+
+Les conteneurs des fonctions (`fn-*`) sont protégés de la même façon : ni shell, ni copie de fichiers, ni lecture de fichiers, ni tunnel de port, ni action sur le conteneur, ni tâche planifiée Docker, car ils contiennent des secrets. Leur environnement est masqué. Gérez-les depuis la page de la fonction. Voir [Module Fonctions](./functions.md).
 
 ## Les réseaux privés ne sont pas un bac à sable
 

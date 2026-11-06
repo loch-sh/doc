@@ -47,6 +47,7 @@ Each module is off by default. Enable it, then set its variables.
 | Websites | `HOSTING_ENABLED=true` (also needs `HOSTING_TRAEFIK_NETWORK`) | [Websites](./hosting.md) |
 | SFTP accounts | `SFTP_ENABLED=true` (also needs `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](./sftp.md) |
 | Managed services | `SERVICES_ENABLED=true` | [Managed services](./services.md) |
+| Functions (work in progress) | `FUNCTIONS_ENABLED=true` (also needs `HOSTING_STACKS_DIRECTORY`) | [Functions module](./functions.md) |
 | Private networks | Always available | [Private networks](./networks.md) |
 
 ## Startup checks
@@ -54,10 +55,10 @@ Each module is off by default. Enable it, then set its variables.
 The API checks every variable when it starts. If anything is wrong, it **refuses to start** and logs every problem at once (`invalid configuration`, one line per variable):
 
 - a missing required variable, a wrong type or out-of-range value, a `COOKIE_SECRET` shorter than 32 characters;
-- an unknown variable with a known prefix (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`): usually a typo, and the message suggests the closest name;
+- an unknown variable with a known prefix (`OIDC_`, `SFTP_`, `HOSTING_`, `SERVICES_`, `FUNCTIONS_`, `NETWORKS_`, `CRON_`, `COOKIE_`, `KEYCLOAK_`, `TRUSTED_`): usually a typo, and the message suggests the closest name;
 - a removed variable: the message says what replaces it.
 
-Values are never written in the logs. Only the installation checks of the services module (paths, mounts, Docker) disable that module without stopping the API.
+Values are never written in the logs. Only the installation checks of the services and functions modules (paths, mounts, Docker) disable that module without stopping the API.
 
 ## Good to know
 

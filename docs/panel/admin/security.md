@@ -39,12 +39,14 @@ Each user creates their own keys, for the `loch` CLI and scripts.
 | Scopes | A key can be limited to some features; it can only create keys within its own scopes |
 
 - Deleting a user revokes all their keys.
-- Admin routes (users, domains, websites, SFTP, services, networks, audit) always require the admin profile, whatever the scopes.
+- Admin routes (users, domains, websites, SFTP, services, networks, functions, audit) always require the admin profile, whatever the scopes.
 - Full list of scopes: [API key scopes](../reference/scopes.md).
 
 ## The API container is protected
 
 Nobody, admin included, can open a shell in the API container, copy files to or from it, follow its files, or target it with an `exec` scheduled task. These would give access to the audit log. Stack actions also skip it.
+
+Function containers (`fn-*`) are protected the same way: no shell, file copy, file tail, port tunnel, container action or Docker scheduled task, since they hold secrets. Their environment is masked. Manage them from the function page. See [Functions module](./functions.md).
 
 ## Private networks are not a sandbox
 
