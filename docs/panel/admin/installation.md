@@ -137,4 +137,4 @@ Put both containers behind an HTTPS reverse proxy (Traefik, nginx…):
 - Mount `/app/log`, or the audit trail is lost when the container is recreated.
 - Hosting and services directories must be bind-mounted at the **same path** in the API container as on the host; the API checks it at startup.
 - The panel pulls the images it runs (sites, services) from `mirror.gcr.io`; the services module also needs outbound HTTPS to discover versions (see the [Configuration reference](../reference/configuration.md#services)).
-- Optional modules: [Websites](./hosting.md), [SFTP](./sftp.md), [Managed services](./services.md), [Private networks](./networks.md).
+- Optional modules: [Websites](../hosting/sites.md), [SFTP](../hosting/sftp.md), [Managed services](../services/overview.md), [Private networks](../network/private-networks.md).

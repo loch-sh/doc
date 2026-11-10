@@ -18,5 +18,17 @@
   "sidebar.panel.category.Reference": {
     "message": "Référence",
     "description": "The label for category 'Reference' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Hosting": {
+    "message": "Hébergement",
+    "description": "The label for category 'Hosting' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Managed services": {
+    "message": "Services managés",
+    "description": "The label for category 'Managed services' in sidebar 'panel'"
+  },
+  "sidebar.panel.category.Network": {
+    "message": "Réseau",
+    "description": "The label for category 'Network' in sidebar 'panel'"
   }
 }

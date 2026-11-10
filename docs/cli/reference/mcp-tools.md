@@ -66,7 +66,7 @@ The settings of another type are refused.
 
 ## Web hosting {#hosting}
 
-Admin only; the hosting module must be enabled. Reading needs `hosting:read`; changing needs `hosting:read` and `hosting:write`. Panel side: [Web hosting](/panel/admin/hosting/).
+Admin only; the hosting module must be enabled. Reading needs `hosting:read`; changing needs `hosting:read` and `hosting:write`. Panel side: [Web hosting](/panel/hosting/sites/).
 
 | Tool | Does | Main parameters | Kind | Scope |
 |---|---|---|---|---|
@@ -108,7 +108,7 @@ PHP settings are refused on the `nginx` and `apache` templates. When files were 
 
 ## SFTP users {#sftp}
 
-Admin only; the SFTP module must be enabled. Panel side: [SFTP](/panel/admin/sftp/).
+Admin only; the SFTP module must be enabled. Panel side: [SFTP](/panel/hosting/sftp/).
 
 | Tool | Does | Main parameters | Kind | Scope |
 |---|---|---|---|---|
@@ -126,7 +126,7 @@ A generated password is returned once as `generatedPassword` and enters the conv
 
 ## Databases and services {#services}
 
-Admin only; the services module must be enabled. Panel side: [Services](/panel/admin/services/).
+Admin only; the services module must be enabled. Panel side: [Services](/panel/services/overview/).
 
 | Tool | Does | Main parameters | Kind | Scope |
 |---|---|---|---|---|
@@ -143,7 +143,7 @@ Passwords are never returned to the assistant. The user runs `loch services rese
 
 ## Private networks {#networks}
 
-Admin only. Panel side: [Networks](/panel/admin/networks/).
+Admin only. Panel side: [Networks](/panel/network/private-networks/).
 
 | Tool | Does | Main parameters | Kind | Scope |
 |---|---|---|---|---|

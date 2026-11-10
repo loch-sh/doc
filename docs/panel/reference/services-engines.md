@@ -6,7 +6,7 @@ description: Every engine of the managed services module, with its versions, top
 
 # Services engines
 
-Full catalog of the [managed services](../admin/services.md) module. Run `loch services engines` to see what your server offers right now.
+Full catalog of the [managed services](../services/overview.md) module. Run `loch services engines` to see what your server offers right now.
 
 ## Engines
 

@@ -6,7 +6,7 @@ description: Tous les moteurs du module services managés, avec leurs versions, 
 
 # Moteurs de services
 
-Catalogue complet du module [services managés](../admin/services.md). Lancez `loch services engines` pour voir ce que votre serveur propose en ce moment.
+Catalogue complet du module [services managés](../services/overview.md). Lancez `loch services engines` pour voir ce que votre serveur propose en ce moment.
 
 ## Moteurs
 

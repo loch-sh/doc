@@ -50,11 +50,11 @@ Function containers (`fn-*`) are protected the same way: no shell, file copy, fi
 
 ## Private networks are not a sandbox
 
-[Private networks](./networks.md) separate the panel's sites and service instances from each other. They are **not** an access control against CI stacks or anything with access to the Docker socket: any container can join a network by name. The panel shows the containers it does not manage on its networks, so you can disconnect them.
+[Private networks](../network/private-networks.md) separate the panel's sites and service instances from each other. They are **not** an access control against CI stacks or anything with access to the Docker socket: any container can join a network by name. The panel shows the containers it does not manage on its networks, so you can disconnect them.
 
 ## Good to know
 
 - Grant restricted users only the containers they need: a shell in a container gives everything that container can reach.
 - Check the [audit trail](./audit.md) for `access denied` entries.
-- Managed services (published ports, TLS) have their own rules: see [Managed services](./services.md).
+- Managed services (published ports, TLS) have their own rules: see [Managed services](../services/overview.md).
 - To report a vulnerability, contact the maintainers privately, not in a public issue.

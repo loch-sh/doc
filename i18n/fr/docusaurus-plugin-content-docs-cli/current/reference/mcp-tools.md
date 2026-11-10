@@ -66,7 +66,7 @@ Les réglages d'un autre type sont refusés.
 
 ## Hébergement web {#hosting}
 
-Réservé aux admins ; le module d'hébergement doit être activé. La lecture demande `hosting:read` ; la modification demande `hosting:read` et `hosting:write`. Côté panel : [Hébergement web](/panel/admin/hosting/).
+Réservé aux admins ; le module d'hébergement doit être activé. La lecture demande `hosting:read` ; la modification demande `hosting:read` et `hosting:write`. Côté panel : [Hébergement web](/panel/hosting/sites/).
 
 | Outil | Rôle | Paramètres principaux | Nature | Scope |
 |---|---|---|---|---|
@@ -108,7 +108,7 @@ Les réglages PHP sont refusés sur les templates `nginx` et `apache`. Quand des
 
 ## Utilisateurs SFTP {#sftp}
 
-Réservé aux admins ; le module SFTP doit être activé. Côté panel : [SFTP](/panel/admin/sftp/).
+Réservé aux admins ; le module SFTP doit être activé. Côté panel : [SFTP](/panel/hosting/sftp/).
 
 | Outil | Rôle | Paramètres principaux | Nature | Scope |
 |---|---|---|---|---|
@@ -126,7 +126,7 @@ Un mot de passe généré est renvoyé une seule fois dans `generatedPassword` e
 
 ## Bases de données et services {#services}
 
-Réservé aux admins ; le module services doit être activé. Côté panel : [Services](/panel/admin/services/).
+Réservé aux admins ; le module services doit être activé. Côté panel : [Services](/panel/services/overview/).
 
 | Outil | Rôle | Paramètres principaux | Nature | Scope |
 |---|---|---|---|---|
@@ -143,7 +143,7 @@ Les mots de passe ne sont jamais renvoyés à l'assistant. L'utilisateur lance `
 
 ## Réseaux privés {#networks}
 
-Réservé aux admins. Côté panel : [Réseaux](/panel/admin/networks/).
+Réservé aux admins. Côté panel : [Réseaux](/panel/network/private-networks/).
 
 | Outil | Rôle | Paramètres principaux | Nature | Scope |
 |---|---|---|---|---|

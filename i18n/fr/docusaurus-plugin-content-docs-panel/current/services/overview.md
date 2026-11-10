@@ -1,5 +1,6 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
+sidebar_label: Vue d'ensemble
 title: Services managés
 description: Activez le module services, créez bases de données, caches, brokers et stockage objet pour vos sites, redimensionnez, mettez à jour et publiez-les.
 ---
@@ -24,7 +25,15 @@ Ajoutez les variables au `.env` de l'API, puis redémarrez l'API :
 
 Les fichiers compose vont dans `HOSTING_STACKS_DIRECTORY` : le module a besoin de ce répertoire même quand le module Hosting est désactivé. Autres variables (limites, publication, TLS, épinglage de versions) : [référence de configuration](../reference/configuration.md).
 
-Les menus **Bases de données**, **Cache**, **Messagerie**, **Files d'attente** et **Stockage** listent les moteurs activés.
+Chaque menu liste ses moteurs activés. Ce qui est propre à chaque moteur est sur sa page :
+
+| Menu | Moteurs | Page |
+|---|---|---|
+| **Bases de données** | MySQL, MariaDB, PostgreSQL, MongoDB | [Bases de données](./databases.md) |
+| **Cache** | Redis, Valkey | [Cache](./cache.md) |
+| **Messagerie** | RabbitMQ, NATS | [Messagerie](./messaging.md) |
+| **Files d'attente** | ElasticMQ, Eclipse Mosquitto | [Files d'attente](./queues.md) |
+| **Stockage** | Loch S3 | [Stockage](./storage.md) |
 
 ## Instances partagées et dédiées
 
@@ -37,6 +46,21 @@ Les menus **Bases de données**, **Cache**, **Messagerie**, **Files d'attente** 
 - Une instance dédiée est supprimée avec ses données.
 
 Moteurs, versions et options : [référence des moteurs de services](../reference/services-engines.md).
+
+## La page d'un moteur
+
+Ouvrez un moteur dans le menu. Tant qu'il n'a aucune ressource, une carte de présentation remplace le tableau. L'en-tête indique la date de la dernière vérification des versions, **Rechercher des mises à jour** et le bouton de création.
+
+| Topologie | Une ligne par | Colonnes |
+|---|---|---|
+| Partagée | Version | **Version**, **État**, nombre de bases (ou d'hôtes virtuels), **Adresse interne**, **Réseaux**, **Port publié**, **Actions** |
+| Dédiée | Instance | **Nom**, **Version**, **Taille**, **État**, **Adresse interne**, **Réseaux**, **Port publié**, **Actions** |
+
+- Une ligne partagée se déplie sur ses ressources, avec **Nouveau mot de passe** et **Supprimer**. Une ressource créée hors du panel porte le badge **Non gérée** : elle ne peut pas être supprimée ici et maintient l'instance.
+- Une ligne dédiée a **Mettre à jour**, **Modifier**, **Nouveau mot de passe** et **Supprimer**.
+- La colonne **Version** affiche les dates de support et les badges **Mise à jour disponible** et **Modifiée à la main**.
+
+<Screenshot id="databases-postgres" alt="La page PostgreSQL avec une instance partagée par version, ses bases, son adresse, ses réseaux et son port publié" />
 
 ## Créer une ressource
 
@@ -129,4 +153,4 @@ La suppression est définitive.
 - ElasticMQ n'a **aucune authentification** : il est refusé sur le réseau partagé `services`. Placez-le sur un réseau privé partagé uniquement avec les sites autorisés.
 - Une instance dont les fichiers ont été modifiés à la main est marquée **Modifiée à la main** et n'est jamais lancée par le panel. Restaurez les fichiers, ou supprimez-la avec ses données.
 - Un réseau n'est pas une barrière contre quiconque peut utiliser le socket Docker ou déployer des stacks CI.
-- Plus de détails : [Sécurité](./security.md).
+- Plus de détails : [Sécurité](../admin/security.md).

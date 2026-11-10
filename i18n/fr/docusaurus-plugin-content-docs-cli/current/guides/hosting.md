@@ -6,7 +6,7 @@ description: Créer, modifier, redéployer et supprimer des sites PHP, Nginx et 
 
 # Hébergement web
 
-`loch hosting` (alias `loch host`) gère les sites hébergés par le panel : PHP avec Nginx ou Apache, ou sites statiques Nginx ou Apache. Réservé aux admins ; le module d'hébergement doit être activé sur le serveur. Côté panel : [Hébergement web](/panel/admin/hosting/).
+`loch hosting` (alias `loch host`) gère les sites hébergés par le panel : PHP avec Nginx ou Apache, ou sites statiques Nginx ou Apache. Réservé aux admins ; le module d'hébergement doit être activé sur le serveur. Côté panel : [Hébergement web](/panel/hosting/sites/).
 
 ## Commandes
 

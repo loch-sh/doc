@@ -6,7 +6,7 @@ description: Create databases, caches, message brokers, queues and object storag
 
 # Databases and services
 
-`loch services` (alias `loch db`) manages the services module. Admin only; the module must be enabled on the server. Panel side: [Services](/panel/admin/services/).
+`loch services` (alias `loch db`) manages the services module. Admin only; the module must be enabled on the server. Panel side: [Services](/panel/services/overview/).
 
 - **Shared engines** (MySQL, MariaDB, PostgreSQL, MongoDB, RabbitMQ): one instance per version. You create a database (or vhost) with a user of the same name. The first one starts the instance.
 - **Dedicated engines** (Redis, Valkey, NATS, Loch S3, ElasticMQ, Mosquitto): one container per resource, sized with options.

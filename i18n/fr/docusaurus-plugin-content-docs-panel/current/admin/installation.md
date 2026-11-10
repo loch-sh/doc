@@ -137,4 +137,4 @@ Placez les deux conteneurs derrière un reverse proxy HTTPS (Traefik, nginx…) 
 - Montez `/app/log`, sinon l'audit trail est perdu quand le conteneur est recréé.
 - Les répertoires de l'hébergement et des services doivent être montés au **même chemin** dans le conteneur de l'API que sur l'hôte ; l'API le vérifie au démarrage.
 - Le panel télécharge les images qu'il lance (sites, services) depuis `mirror.gcr.io` ; le module services a aussi besoin d'un accès HTTPS sortant pour découvrir les versions (voir la [référence de configuration](../reference/configuration.md#services)).
-- Modules facultatifs : [Sites web](./hosting.md), [SFTP](./sftp.md), [Services managés](./services.md), [Réseaux privés](./networks.md).
+- Modules facultatifs : [Sites web](../hosting/sites.md), [SFTP](../hosting/sftp.md), [Services managés](../services/overview.md), [Réseaux privés](../network/private-networks.md).

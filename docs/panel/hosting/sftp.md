@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 2
 title: SFTP accounts
 description: Enable the SFTP module (SFTPGo) and give website owners SFTP access to their files.
 ---
@@ -38,7 +38,7 @@ Admin only. Requires a running [SFTPGo](https://github.com/drakkan/sftpgo) and `
 | `SFTP_WEB_USER_INTERFACE` | URL of the SFTPGo web client shown to users | none |
 | `SFTP_INIT_DIRS` | Directories created in a new user's home (empty: none) | `web,logs` |
 
-Use the same directory as `HOSTING_SITES_DIRECTORY` so that SFTP users edit the files of the [websites](./hosting.md). Only SFTPGo users whose home is under `SFTP_DIRECTORY` are shown; the others are ignored.
+Use the same directory as `HOSTING_SITES_DIRECTORY` so that SFTP users edit the files of the [websites](./sites.md). Only SFTPGo users whose home is under `SFTP_DIRECTORY` are shown; the others are ignored.
 
 ## Sites and users
 

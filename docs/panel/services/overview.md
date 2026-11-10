@@ -1,5 +1,6 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
+sidebar_label: Overview
 title: Managed services
 description: Enable the services module, create databases, caches, brokers and object storage for your websites, resize, update and publish them.
 ---
@@ -24,7 +25,15 @@ Add the variables to the API `.env`, then restart the API:
 
 The compose files go to `HOSTING_STACKS_DIRECTORY`, so the module needs that directory even when the Hosting module is off. Other variables (limits, exposure, TLS, version pinning): [Configuration reference](../reference/configuration.md).
 
-The menus **Databases**, **Cache**, **Messaging**, **Queues** and **Storage** list the enabled engines.
+Each menu lists its enabled engines. What is specific to each engine is on its page:
+
+| Menu | Engines | Page |
+|---|---|---|
+| **Databases** | MySQL, MariaDB, PostgreSQL, MongoDB | [Databases](./databases.md) |
+| **Cache** | Redis, Valkey | [Cache](./cache.md) |
+| **Messaging** | RabbitMQ, NATS | [Messaging](./messaging.md) |
+| **Queues** | ElasticMQ, Eclipse Mosquitto | [Queues](./queues.md) |
+| **Storage** | Loch S3 | [Storage](./storage.md) |
 
 ## Shared and dedicated instances
 
@@ -37,6 +46,21 @@ The menus **Databases**, **Cache**, **Messaging**, **Queues** and **Storage** li
 - A dedicated instance is deleted with its data.
 
 Engines, versions and options: [Services engines reference](../reference/services-engines.md).
+
+## The engine page
+
+Open an engine in the menu. Until it has a resource, a presentation card replaces the table. The header shows when the versions were last checked, **Check for updates** and the create button.
+
+| Topology | One row per | Columns |
+|---|---|---|
+| Shared | Version | **Version**, **State**, number of databases (or virtual hosts), **Internal address**, **Networks**, **Published port**, **Actions** |
+| Dedicated | Instance | **Name**, **Version**, **Size**, **State**, **Internal address**, **Networks**, **Published port**, **Actions** |
+
+- A shared row unfolds on its resources, with **New password** and **Delete**. A resource created outside the panel is tagged **Not managed**: it cannot be deleted here and keeps the instance running.
+- A dedicated row has **Update**, **Edit**, **New password** and **Delete**.
+- The **Version** column shows the support dates and the tags **Update available** and **Edited by hand**.
+
+<Screenshot id="databases-postgres" alt="The PostgreSQL page with one shared instance per version, its databases, address, networks and published port" />
 
 ## Create a resource
 
@@ -129,4 +153,4 @@ Deletion is final.
 - ElasticMQ has **no authentication**: it is refused on the shared `services` network. Put it on a private network shared only with the sites allowed to use it.
 - An instance whose files were edited by hand is shown **Edited by hand** and never run by the panel. Restore the files, or delete it with its data.
 - A network is not a boundary against whoever can use the Docker socket or deploy CI stacks.
-- More: [Security](./security.md).
+- More: [Security](../admin/security.md).

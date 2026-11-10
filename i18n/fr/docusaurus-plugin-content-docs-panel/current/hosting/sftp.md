@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 2
 title: Comptes SFTP
 description: Activez le module SFTP (SFTPGo) et donnez aux propriétaires de sites un accès SFTP à leurs fichiers.
 ---
@@ -38,7 +38,7 @@ Réservé aux admins. Nécessite un [SFTPGo](https://github.com/drakkan/sftpgo) 
 | `SFTP_WEB_USER_INTERFACE` | URL du client web SFTPGo affichée aux utilisateurs | aucun |
 | `SFTP_INIT_DIRS` | Répertoires créés dans le dossier d'un nouvel utilisateur (vide : aucun) | `web,logs` |
 
-Utilisez le même répertoire que `HOSTING_SITES_DIRECTORY` pour que les utilisateurs SFTP modifient les fichiers des [sites web](./hosting.md). Seuls les utilisateurs SFTPGo dont le dossier est sous `SFTP_DIRECTORY` sont affichés ; les autres sont ignorés.
+Utilisez le même répertoire que `HOSTING_SITES_DIRECTORY` pour que les utilisateurs SFTP modifient les fichiers des [sites web](./sites.md). Seuls les utilisateurs SFTPGo dont le dossier est sous `SFTP_DIRECTORY` sont affichés ; les autres sont ignorés.
 
 ## Sites et utilisateurs
 

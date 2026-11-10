@@ -44,11 +44,11 @@ Each module is off by default. Enable it, then set its variables.
 
 | Module | Switch | Guide |
 |---|---|---|
-| Websites | `HOSTING_ENABLED=true` (also needs `HOSTING_TRAEFIK_NETWORK`) | [Websites](./hosting.md) |
-| SFTP accounts | `SFTP_ENABLED=true` (also needs `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](./sftp.md) |
-| Managed services | `SERVICES_ENABLED=true` | [Managed services](./services.md) |
+| Websites | `HOSTING_ENABLED=true` (also needs `HOSTING_TRAEFIK_NETWORK`) | [Websites](../hosting/sites.md) |
+| SFTP accounts | `SFTP_ENABLED=true` (also needs `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](../hosting/sftp.md) |
+| Managed services | `SERVICES_ENABLED=true` | [Managed services](../services/overview.md) |
 | Functions (work in progress) | `FUNCTIONS_ENABLED=true` (also needs `HOSTING_STACKS_DIRECTORY`) | [Functions module](./functions.md) |
-| Private networks | Always available | [Private networks](./networks.md) |
+| Private networks | Always available | [Private networks](../network/private-networks.md) |
 
 ## Startup checks
 

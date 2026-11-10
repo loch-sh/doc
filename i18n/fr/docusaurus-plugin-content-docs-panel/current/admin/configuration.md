@@ -44,11 +44,11 @@ Chaque module est désactivé par défaut. Activez-le, puis renseignez ses varia
 
 | Module | Interrupteur | Guide |
 |---|---|---|
-| Sites web | `HOSTING_ENABLED=true` (exige aussi `HOSTING_TRAEFIK_NETWORK`) | [Sites web](./hosting.md) |
-| Comptes SFTP | `SFTP_ENABLED=true` (exige aussi `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](./sftp.md) |
-| Services managés | `SERVICES_ENABLED=true` | [Services managés](./services.md) |
+| Sites web | `HOSTING_ENABLED=true` (exige aussi `HOSTING_TRAEFIK_NETWORK`) | [Sites web](../hosting/sites.md) |
+| Comptes SFTP | `SFTP_ENABLED=true` (exige aussi `SFTP_DIRECTORY`, `SFTP_API_URL`, `SFTP_API_KEY`) | [SFTP](../hosting/sftp.md) |
+| Services managés | `SERVICES_ENABLED=true` | [Services managés](../services/overview.md) |
 | Fonctions (travail en cours) | `FUNCTIONS_ENABLED=true` (nécessite aussi `HOSTING_STACKS_DIRECTORY`) | [Module Fonctions](./functions.md) |
-| Réseaux privés | Toujours disponibles | [Réseaux privés](./networks.md) |
+| Réseaux privés | Toujours disponibles | [Réseaux privés](../network/private-networks.md) |
 
 ## Vérifications au démarrage
 

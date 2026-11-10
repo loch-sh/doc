@@ -50,11 +50,11 @@ Les conteneurs des fonctions (`fn-*`) sont protégés de la même façon : ni sh
 
 ## Les réseaux privés ne sont pas un bac à sable
 
-Les [réseaux privés](./networks.md) séparent les sites et les instances de services du panel les uns des autres. Ce ne sont **pas** un contrôle d'accès face aux stacks de CI ou à quiconque a accès au socket Docker : n'importe quel conteneur peut rejoindre un réseau par son nom. Le panel affiche les conteneurs qu'il ne gère pas sur ses réseaux, pour que vous puissiez les déconnecter.
+Les [réseaux privés](../network/private-networks.md) séparent les sites et les instances de services du panel les uns des autres. Ce ne sont **pas** un contrôle d'accès face aux stacks de CI ou à quiconque a accès au socket Docker : n'importe quel conteneur peut rejoindre un réseau par son nom. Le panel affiche les conteneurs qu'il ne gère pas sur ses réseaux, pour que vous puissiez les déconnecter.
 
 ## Bon à savoir
 
 - N'attribuez aux utilisateurs restreints que les conteneurs nécessaires : un shell dans un conteneur donne accès à tout ce que ce conteneur peut atteindre.
 - Surveillez les entrées `access denied` dans l'[audit trail](./audit.md).
-- Les services managés (ports publiés, TLS) ont leurs propres règles : voir [Services managés](./services.md).
+- Les services managés (ports publiés, TLS) ont leurs propres règles : voir [Services managés](../services/overview.md).
 - Pour signaler une vulnérabilité, contactez les mainteneurs en privé, pas dans un ticket public.

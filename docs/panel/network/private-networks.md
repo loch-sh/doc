@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 2
 title: Private networks
 description: Decide which websites reach which service instances and functions with private Docker networks, attach and detach members.
 ---

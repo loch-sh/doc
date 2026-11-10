@@ -55,7 +55,7 @@ Les booléens acceptent `true`, `1`, `yes`, `on` et `false`, `0`, `no`, `off`. L
 | `NETWORKS_MAX` | `50` | Nombre maximal de réseaux privés, réseau système non compté (1 à 500) |
 | `NETWORKS_RESERVED_RANGES` | vide | Plages IPv4 (au moins /8) utilisées hors de Docker (réseau local, VPN, routes statiques) qu'aucun réseau privé ne doit chevaucher |
 
-Voir [Réseaux privés](../admin/networks.md).
+Voir [Réseaux privés](../network/private-networks.md).
 
 ## Sites web (hébergement) {#hosting}
 
@@ -75,7 +75,7 @@ Voir [Réseaux privés](../admin/networks.md).
 | `HOSTING_DEFAULT_CPUS` | `0` | Limite CPU par défaut d'un site (`0` : illimitée, sinon 0.1 minimum) |
 | `HOSTING_MAX_CPUS` | `0` | Limite CPU maximale qu'un site peut demander (`0` : les CPU de l'hôte, sinon 0.1 minimum ; plafonnée à l'hôte) |
 
-Une valeur par défaut supérieure à son maximum arrête l'API. Voir [Sites web](../admin/hosting.md).
+Une valeur par défaut supérieure à son maximum arrête l'API. Voir [Sites web](../hosting/sites.md).
 
 ## SFTP {#sftp}
 
@@ -90,7 +90,7 @@ Une valeur par défaut supérieure à son maximum arrête l'API. Voir [Sites web
 | `SFTP_WEB_USER_INTERFACE` | vide | URL du client web SFTPGo affichée aux utilisateurs |
 | `SFTP_INIT_DIRS` | `web,logs` | Répertoires créés dans le dossier d'un nouvel utilisateur sur demande (vide : aucun) |
 
-Voir [SFTP](../admin/sftp.md).
+Voir [SFTP](../hosting/sftp.md).
 
 ## Services managés {#services}
 
@@ -114,7 +114,7 @@ Voir [SFTP](../admin/sftp.md).
 | `SERVICES_TLS_KEY_FILE` | vide | Clé de ce certificat |
 | `SERVICES_S3_ADMIN_API_KEY` | vide | Vide : une instance Loch S3 par ressource (seul mode disponible). Définie : mode partagé, pas encore disponible, le moteur `s3` est désactivé |
 
-La découverte des versions exige un accès HTTPS sortant vers `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` et `endoflife.date`. Voir [Services managés](../admin/services.md).
+La découverte des versions exige un accès HTTPS sortant vers `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` et `endoflife.date`. Voir [Services managés](../services/overview.md).
 
 ## Fonctions (travail en cours) {#functions}
 

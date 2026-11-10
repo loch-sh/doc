@@ -6,7 +6,7 @@ description: Create, enable, disable and delete the SFTP accounts of hosted site
 
 # SFTP users
 
-`loch sftp` manages the SFTP accounts that give access to the files of a site. Admin only; the SFTP module must be enabled on the server. Panel side: [SFTP](/panel/admin/sftp/).
+`loch sftp` manages the SFTP accounts that give access to the files of a site. Admin only; the SFTP module must be enabled on the server. Panel side: [SFTP](/panel/hosting/sftp/).
 
 ## Commands
 

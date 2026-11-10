@@ -28,6 +28,7 @@ Loch Panel gère un serveur Docker depuis une interface web, la CLI `loch` ou un
 | Services managés : bases de données, cache, messagerie, stockage | Admin | `SERVICES_ENABLED` |
 | Fonctions : handlers écrits pour AWS Lambda™ (travail en cours) | Admin | `FUNCTIONS_ENABLED` |
 | Réseaux privés | Admin | Toujours active (le réseau partagé `services` nécessite le module services) |
+| Cartographie des domaines routés par Traefik | Admin | Toujours active |
 | Journal d'audit | Admin | Toujours active |
 
 Une entrée de menu n'apparaît que si sa fonctionnalité est activée.

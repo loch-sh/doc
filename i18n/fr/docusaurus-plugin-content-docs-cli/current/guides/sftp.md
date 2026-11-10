@@ -6,7 +6,7 @@ description: Créer, activer, désactiver et supprimer les comptes SFTP des site
 
 # Utilisateurs SFTP
 
-`loch sftp` gère les comptes SFTP qui donnent accès aux fichiers d'un site. Réservé aux admins ; le module SFTP doit être activé sur le serveur. Côté panel : [SFTP](/panel/admin/sftp/).
+`loch sftp` gère les comptes SFTP qui donnent accès aux fichiers d'un site. Réservé aux admins ; le module SFTP doit être activé sur le serveur. Côté panel : [SFTP](/panel/hosting/sftp/).
 
 ## Commandes
 

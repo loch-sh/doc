@@ -6,7 +6,7 @@ description: Create private networks and choose which hosted sites reach which s
 
 # Private networks
 
-`loch networks` (alias `loch net`) manages the internal Docker networks, without Internet access, that connect hosted sites and service instances. A site only reaches the instances of its networks. Admin only. Panel side: [Networks](/panel/admin/networks/).
+`loch networks` (alias `loch net`) manages the internal Docker networks, without Internet access, that connect hosted sites and service instances. A site only reaches the instances of its networks. Admin only. Panel side: [Networks](/panel/network/private-networks/).
 
 `services` is the shared network of the services module. It cannot be deleted. A private network isolates a group, e.g. a site and its queue.
 

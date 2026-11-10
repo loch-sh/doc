@@ -98,7 +98,7 @@ La fonction ne répond qu'aux membres de ses réseaux, à son **URL interne** (`
 - un jeton bearer (`Authorization: Bearer <token>`) ;
 - avec **Appelants SigV4 (AWS SDK)** activé, une paire de clés pour les SDK AWS (`endpoint-url` `http://fn-<name>:8080`, région `us-east-1`). Le code de la fonction peut lire cette paire de clés.
 
-Rattachez le site ou le service au réseau de la fonction : depuis son onglet **Réseaux**, ou depuis [Réseaux privés](../admin/networks.md). Les invocations du panel lui-même (**Test**, tâches planifiées) n'ont besoin d'aucun identifiant. Format des requêtes : [Invoke API](/lambda-runtime/reference/invoke-api/).
+Rattachez le site ou le service au réseau de la fonction : depuis son onglet **Réseaux**, ou depuis [Réseaux privés](../network/private-networks.md). Les invocations du panel lui-même (**Test**, tâches planifiées) n'ont besoin d'aucun identifiant. Format des requêtes : [Invoke API](/lambda-runtime/reference/invoke-api/).
 
 ## États
 

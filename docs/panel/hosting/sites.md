@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 title: Websites
 description: Enable the Hosting module, then create, update, redeploy and delete PHP or static websites served by Traefik.
 ---
@@ -26,6 +26,21 @@ Add these variables to the API `.env`, then restart the API:
 Both directories must exist, be writable, and be mounted **at the same path** in the API container (`-v /data/compose:/data/compose`). The API refuses to start otherwise. The Traefik network is not checked at startup: if it is missing, deployments fail.
 
 Traefik entrypoints, certificate resolver and resource limits: see [Configuration reference](../reference/configuration.md).
+
+## The site list
+
+**Hosting → Sites** lists every site with its **Template**, **PHP** version, **Domains** and **Status**.
+
+| Status | Meaning |
+|---|---|
+| **Running** | Every container runs. The count shows `(running/total)` |
+| **Partially running** | Some containers are stopped |
+| **Stopped** | No container runs |
+| **Not deployed** | The site exists, its containers do not |
+
+A site can also be tagged **Last operation failed** or **Modified manually** (its compose file was edited by hand). The row actions are **Start**, **Restart**, **Stop**, **Redeploy** and **Details**.
+
+<Screenshot id="hosting-list" alt="The Hosting page with the sites, their template, PHP version, domains and status" />
 
 ## Create a website
 
@@ -80,7 +95,19 @@ When the container reaches its memory limit, Docker kills it: leave the limit of
 
 ### Private networks
 
-A site reaches managed services through the networks it joins (for example `svc-postgres-17`). When the services module is enabled, the shared network `services` is preselected. See [Private networks](./networks.md).
+A site reaches managed services through the networks it joins (for example `svc-postgres-17`). When the services module is enabled, the shared network `services` is preselected. See [Private networks](../network/private-networks.md).
+
+## The site page
+
+Click **Details** on a site. The page has five tabs:
+
+| Tab | Content |
+|---|---|
+| **Overview** | The settings (template, image, PHP, routing, directory, domains, HTTPS, networks, resources); **Resource usage**: live CPU, memory, network and processes per container; **Containers**: actions, and **Container details** with the live logs, the log file download and an interactive Docker terminal |
+| **Settings** | The creation form, with **Save and redeploy** |
+| **Networks** | **Panel networks**: **Connect a network** or **Disconnect** one (the site restarts); **Other Docker networks**, read-only |
+| **Compose** | The generated `compose.yaml`, read-only, and the **Routing rules** used by the web server |
+| **Last operation** | Type, state, duration and Docker Compose output of the last deployment |
 
 ## Update a website
 

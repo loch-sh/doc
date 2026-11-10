@@ -6,7 +6,7 @@ description: Créer des bases de données, caches, brokers de messages, files d'
 
 # Bases de données et services
 
-`loch services` (alias `loch db`) gère le module services. Réservé aux admins ; le module doit être activé sur le serveur. Côté panel : [Services](/panel/admin/services/).
+`loch services` (alias `loch db`) gère le module services. Réservé aux admins ; le module doit être activé sur le serveur. Côté panel : [Services](/panel/services/overview/).
 
 - **Moteurs partagés** (MySQL, MariaDB, PostgreSQL, MongoDB, RabbitMQ) : une instance par version. Vous créez une base (ou un vhost) avec un utilisateur du même nom. La première démarre l'instance.
 - **Moteurs dédiés** (Redis, Valkey, NATS, Loch S3, ElasticMQ, Mosquitto) : un conteneur par ressource, dimensionné par des options.

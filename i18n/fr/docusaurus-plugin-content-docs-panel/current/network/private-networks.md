@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 2
 title: Réseaux privés
 description: Décidez quels sites atteignent quelles instances de services et quelles fonctions grâce à des réseaux Docker privés, attachez et détachez des membres.
 ---

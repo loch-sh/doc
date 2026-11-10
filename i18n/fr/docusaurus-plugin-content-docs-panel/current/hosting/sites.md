@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 title: Sites web
 description: Activez le module Hosting, puis créez, modifiez, redéployez et supprimez des sites PHP ou statiques servis par Traefik.
 ---
@@ -26,6 +26,21 @@ Ajoutez ces variables au `.env` de l'API, puis redémarrez l'API :
 Les deux répertoires doivent exister, être accessibles en écriture et montés **au même chemin** dans le conteneur de l'API (`-v /data/compose:/data/compose`). Sinon, l'API refuse de démarrer. Le réseau Traefik n'est pas vérifié au démarrage : s'il manque, les déploiements échouent.
 
 Points d'entrée Traefik, résolveur de certificats et limites de ressources : voir la [référence de configuration](../reference/configuration.md).
+
+## La liste des sites
+
+**Hébergement → Sites** liste chaque site avec son **Modèle**, sa version de **PHP**, ses **Domaines** et son **Statut**.
+
+| Statut | Sens |
+|---|---|
+| **En marche** | Tous les conteneurs tournent. Le compteur affiche `(en marche/total)` |
+| **Partiellement en marche** | Certains conteneurs sont arrêtés |
+| **Arrêtée** | Aucun conteneur ne tourne |
+| **Non déployée** | Le site existe, pas ses conteneurs |
+
+Un site peut aussi porter le badge **Dernière opération en échec** ou **Modifiée manuellement** (son fichier compose a été modifié à la main). Les actions de la ligne sont **Démarrer**, **Redémarrer**, **Arrêter**, **Redéployer** et **Détails**.
+
+<Screenshot id="hosting-list" alt="La page Hébergement avec les sites, leur modèle, leur version de PHP, leurs domaines et leur statut" />
 
 ## Créer un site
 
@@ -80,7 +95,19 @@ Quand le conteneur atteint sa limite de mémoire, Docker le tue : laissez la lim
 
 ### Réseaux privés
 
-Un site atteint les services managés par les réseaux qu'il rejoint (par exemple `svc-postgres-17`). Quand le module services est activé, le réseau partagé `services` est présélectionné. Voir [Réseaux privés](./networks.md).
+Un site atteint les services managés par les réseaux qu'il rejoint (par exemple `svc-postgres-17`). Quand le module services est activé, le réseau partagé `services` est présélectionné. Voir [Réseaux privés](../network/private-networks.md).
+
+## La page d'un site
+
+Cliquez sur **Détails** sur un site. La page a cinq onglets :
+
+| Onglet | Contenu |
+|---|---|
+| **Vue d'ensemble** | Les réglages (modèle, image, PHP, routage, répertoire, domaines, HTTPS, réseaux, ressources) ; **Consommation** : CPU, mémoire, réseau et processus en direct, par conteneur ; **Conteneurs** : actions, et **Détail conteneur** avec les logs en temps réel, le téléchargement du fichier de logs et un terminal Docker interactif |
+| **Paramètres** | Le formulaire de création, avec **Enregistrer et redéployer** |
+| **Réseaux** | **Réseaux du panel** : **Connecter un réseau** ou en déconnecter un (le site redémarre) ; **Autres réseaux Docker**, en lecture seule |
+| **Compose** | Le `compose.yaml` généré, en lecture seule, et les **Règles de routage** utilisées par le serveur web |
+| **Dernière opération** | Type, état, durée et sortie Docker Compose du dernier déploiement |
 
 ## Modifier un site
 

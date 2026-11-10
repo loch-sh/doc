@@ -98,7 +98,7 @@ The function answers only the members of its networks, at its **Internal URL** (
 - a bearer token (`Authorization: Bearer <token>`);
 - with **SigV4 callers (AWS SDK)** on, an access key pair for the AWS SDKs (`endpoint-url` `http://fn-<name>:8080`, region `us-east-1`). The function code can read this key pair.
 
-Attach the site or service to the function's network: on its **Networks** tab, or from [Private networks](../admin/networks.md). The panel's own invocations (**Test**, scheduled tasks) need no credential. Request format: [Invoke API](/lambda-runtime/reference/invoke-api/).
+Attach the site or service to the function's network: on its **Networks** tab, or from [Private networks](../network/private-networks.md). The panel's own invocations (**Test**, scheduled tasks) need no credential. Request format: [Invoke API](/lambda-runtime/reference/invoke-api/).
 
 ## States
 

@@ -6,7 +6,7 @@ description: Create, change, redeploy and delete PHP, Nginx and Apache websites 
 
 # Web hosting
 
-`loch hosting` (alias `loch host`) manages the hosted websites of the panel: PHP with Nginx or Apache, or static Nginx or Apache sites. Admin only; the hosting module must be enabled on the server. Panel side: [Web hosting](/panel/admin/hosting/).
+`loch hosting` (alias `loch host`) manages the hosted websites of the panel: PHP with Nginx or Apache, or static Nginx or Apache sites. Admin only; the hosting module must be enabled on the server. Panel side: [Web hosting](/panel/hosting/sites/).
 
 ## Commands
 

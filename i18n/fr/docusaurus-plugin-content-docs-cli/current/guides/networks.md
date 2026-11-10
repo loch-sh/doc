@@ -6,7 +6,7 @@ description: Créer des réseaux privés et choisir quels sites hébergés joign
 
 # Réseaux privés
 
-`loch networks` (alias `loch net`) gère les réseaux Docker internes, sans accès à Internet, qui relient les sites hébergés et les instances de services. Un site ne joint que les instances de ses réseaux. Réservé aux admins. Côté panel : [Réseaux](/panel/admin/networks/).
+`loch networks` (alias `loch net`) gère les réseaux Docker internes, sans accès à Internet, qui relient les sites hébergés et les instances de services. Un site ne joint que les instances de ses réseaux. Réservé aux admins. Côté panel : [Réseaux](/panel/network/private-networks/).
 
 `services` est le réseau partagé du module services. Il ne peut pas être supprimé. Un réseau privé isole un groupe, par exemple un site et sa file d'attente.
 

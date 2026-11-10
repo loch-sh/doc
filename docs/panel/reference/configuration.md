@@ -55,7 +55,7 @@ Booleans accept `true`, `1`, `yes`, `on` and `false`, `0`, `no`, `off`. Lists ar
 | `NETWORKS_MAX` | `50` | Maximum number of private networks, the system network not counted (1 to 500) |
 | `NETWORKS_RESERVED_RANGES` | empty | IPv4 ranges (at least /8) used outside Docker (LAN, VPN, static routes) that no private network may overlap |
 
-See [Private networks](../admin/networks.md).
+See [Private networks](../network/private-networks.md).
 
 ## Websites (hosting) {#hosting}
 
@@ -75,7 +75,7 @@ See [Private networks](../admin/networks.md).
 | `HOSTING_DEFAULT_CPUS` | `0` | Default CPU limit of a site (`0`: unlimited, otherwise at least 0.1) |
 | `HOSTING_MAX_CPUS` | `0` | Highest CPU limit a site may request (`0`: the host CPUs, otherwise at least 0.1; capped to the host) |
 
-A default above its maximum stops the API. See [Websites](../admin/hosting.md).
+A default above its maximum stops the API. See [Websites](../hosting/sites.md).
 
 ## SFTP {#sftp}
 
@@ -90,7 +90,7 @@ A default above its maximum stops the API. See [Websites](../admin/hosting.md).
 | `SFTP_WEB_USER_INTERFACE` | empty | URL of the SFTPGo web client shown to users |
 | `SFTP_INIT_DIRS` | `web,logs` | Directories created in the home of a new user when requested (empty: none) |
 
-See [SFTP](../admin/sftp.md).
+See [SFTP](../hosting/sftp.md).
 
 ## Managed services {#services}
 
@@ -114,7 +114,7 @@ See [SFTP](../admin/sftp.md).
 | `SERVICES_TLS_KEY_FILE` | empty | Key of that certificate |
 | `SERVICES_S3_ADMIN_API_KEY` | empty | Empty: one Loch S3 instance per resource (the only mode available). Set: shared mode, not available yet, the `s3` engine is disabled |
 
-Version discovery needs outbound HTTPS to `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` and `endoflife.date`. See [Managed services](../admin/services.md).
+Version discovery needs outbound HTTPS to `registry-1.docker.io`, `auth.docker.io`, `ghcr.io`, `mirror.gcr.io` and `endoflife.date`. See [Managed services](../services/overview.md).
 
 ## Functions (work in progress) {#functions}
 
