@@ -77,6 +77,7 @@ const config: Config = {
 
   plugins: [
     ...products.map(docsInstance),
+    'docusaurus-plugin-matomo',
     [
       'docusaurus-plugin-llms',
       {
@@ -100,6 +101,12 @@ const config: Config = {
   themeConfig: {
     image: 'img/og.png',
     colorMode: {respectPrefersColorScheme: true},
+    matomo: {
+      matomoUrl: 'https://analytics.nitrique.net/',
+      siteId: '43',
+      phpLoader: 'matomo.php',
+      jsLoader: 'matomo.js',
+    },
     navbar: {
       title: 'Loch.sh',
       logo: {alt: 'Loch.sh', src: 'img/logo.svg'},

@@ -5817,6 +5817,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"docusaurus-plugin-matomo@npm:^0.0.8":
+  version: 0.0.8
+  resolution: "docusaurus-plugin-matomo@npm:0.0.8"
+  peerDependencies:
+    "@docusaurus/core": ^2.0.0-alpha.56 || ^3.0.0
+  checksum: 10c0/14acaf78565bcdd584a1a0e010414e628f0be41478271defaaa7626b9c62c374369dd2bdb1ec8231b9afa2a820c9c69ad7cbf54dda5cbe286457967bafaccd11
+  languageName: node
+  linkType: hard
+
 "dom-converter@npm:^0.2.0":
   version: 0.2.0
   resolution: "dom-converter@npm:0.2.0"
@@ -7839,6 +7848,7 @@ __metadata:
     "@playwright/test": "npm:1.64.1"
     clsx: "npm:^2.1.1"
     docusaurus-plugin-llms: "npm:0.6.1"
+    docusaurus-plugin-matomo: "npm:^0.0.8"
     prism-react-renderer: "npm:^2.4.1"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
