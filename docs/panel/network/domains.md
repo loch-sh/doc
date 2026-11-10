@@ -24,9 +24,13 @@ Admin only.
 | **Service** and **Container** | Where the traffic goes |
 | **State** and **Image** | Of that container |
 
+<Screenshot id="domains-table" alt="The Domain map in Table view with each domain, router, TLS, service and container" />
+
 ## Graph view
 
 **Graph** draws each path: entrypoint → domain → router → service → container. Use it to see which container answers a domain, or which domains point to the same container.
+
+<Screenshot id="domains-graph" alt="The Domain map in Graph view, from the entrypoint to the containers" />
 
 ## Filters
 

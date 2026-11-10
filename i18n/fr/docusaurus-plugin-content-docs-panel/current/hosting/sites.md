@@ -109,6 +109,8 @@ Cliquez sur **Détails** sur un site. La page a cinq onglets :
 | **Compose** | Le `compose.yaml` généré, en lecture seule, et les **Règles de routage** utilisées par le serveur web |
 | **Dernière opération** | Type, état, durée et sortie Docker Compose du dernier déploiement |
 
+<Screenshot id="hosting-site-overview" alt="L'onglet Vue d'ensemble d'un site avec ses réglages, sa consommation en direct et ses conteneurs" />
+
 ## Modifier un site
 
 1. Ouvrez le site, onglet **Paramètres**.

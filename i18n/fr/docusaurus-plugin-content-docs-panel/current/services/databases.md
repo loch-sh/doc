@@ -45,6 +45,8 @@ loch services create shop --engine postgres --version 17
 | **URI de connexion** | L'URI complète, construite par le panel |
 | **Adresse externe**, **Empreinte du certificat (SHA-256)** | Seulement quand le port est publié |
 
+<Screenshot id="services-credentials" alt="La fenêtre Informations de connexion avec l'avertissement sur le mot de passe affiché une seule fois" />
+
 L'hôte n'est joignable que depuis les sites présents sur les réseaux de l'instance.
 
 ## Authentification legacy

@@ -24,9 +24,13 @@ Réservé aux admins.
 | **Service** et **Conteneur** | Où va le trafic |
 | **État** et **Image** | De ce conteneur |
 
+<Screenshot id="domains-table" alt="La cartographie des domaines en vue tableau avec chaque domaine, routeur, TLS, service et conteneur" />
+
 ## Vue graphe
 
 **Graphe** dessine chaque chemin : entrypoint → domaine → routeur → service → conteneur. Utilisez-la pour voir quel conteneur répond à un domaine, ou quels domaines pointent vers le même conteneur.
+
+<Screenshot id="domains-graph" alt="La cartographie des domaines en vue graphe, de l'entrypoint aux conteneurs" />
 
 ## Filtres
 

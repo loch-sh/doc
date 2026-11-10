@@ -20,6 +20,8 @@ Each version runs one broker shared by every site. A resource is a **virtual hos
 2. Choose the **Version** and the **Networks**, enter the **Name** (lowercase letters, digits and `_`), then click **Create**.
 3. Copy the password from **Connection details**: **Host** (`svc-rabbitmq-4-2`), **Port** (5672), **Virtual host**, **User**, **Password**, **Connection URI**.
 
+<Screenshot id="services-rabbitmq" alt="The RabbitMQ page with the 4.2 broker unfolded on its virtual hosts" />
+
 ```bash
 loch services create shop --engine rabbitmq --version 4.2
 ```

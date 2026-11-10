@@ -20,6 +20,8 @@ Chaque version fait tourner un broker partagé par tous les sites. Une ressource
 2. Choisissez la **Version** et les **Réseaux**, saisissez le **Nom** (lettres minuscules, chiffres et `_`), puis cliquez sur **Créer**.
 3. Copiez le mot de passe dans **Informations de connexion** : **Hôte** (`svc-rabbitmq-4-2`), **Port** (5672), **Hôte virtuel**, **Utilisateur**, **Mot de passe**, **URI de connexion**.
 
+<Screenshot id="services-rabbitmq" alt="La page RabbitMQ avec le broker 4.2 déplié sur ses hôtes virtuels" />
+
 ```bash
 loch services create shop --engine rabbitmq --version 4.2
 ```

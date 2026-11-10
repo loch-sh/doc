@@ -40,6 +40,8 @@ loch services create media --engine s3 --version 1.4 --option quota=10240
 | **Access key ID**, **Secret access key** | The secret is shown once |
 | **Path-style URLs** | Required |
 
+<Screenshot id="services-credentials-s3" alt="The Connection details window of a Loch S3 instance with the endpoint, bucket and access key" />
+
 **Copy the Laravel .env lines** copies, secret included:
 
 ```bash

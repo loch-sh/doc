@@ -45,6 +45,8 @@ loch services create shop --engine postgres --version 17
 | **Connection URI** | The full URI, built by the panel |
 | **External address**, **Certificate fingerprint (SHA-256)** | Only when the port is published |
 
+<Screenshot id="services-credentials" alt="The Connection details window with the one-time password warning" />
+
 The host is reachable only from the sites on the instance's networks.
 
 ## Legacy authentication

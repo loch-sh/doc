@@ -29,6 +29,8 @@ ElasticMQ has **no authentication**: every site on the same network can use, pur
 | **Memory** | 128 MB to 1 GB, or **Custom** up to 8 GB | 256 MB |
 | **SQS limits** | **Strict**: same limits as Amazon SQS, what works here works on AWS. **Relaxed**: larger messages and longer delays (development, migrations) | **Strict** |
 
+<Screenshot id="services-create-elasticmq" alt="The New ElasticMQ instance page with the no-authentication warnings and the SQS limits" />
+
 ```bash
 loch services create jobs --engine elasticmq --version 1.7 --network shop
 ```

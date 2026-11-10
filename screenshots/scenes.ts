@@ -2,7 +2,7 @@ import type {Page} from '@playwright/test';
 import type {MockApi} from './.interface/tests/mocks/api';
 import {restrictedUser} from './.interface/tests/mocks/fixtures';
 import type {WsMock} from './fixtures';
-import {demoContainers} from './demo';
+import {containerId, demoContainers} from './demo';
 
 /**
  * One scene = one screenshot, captured for each locale and color scheme as
@@ -81,6 +81,7 @@ function mockStats(ws: WsMock) {
     const base: Record<string, [number, number, number]> = {
       'crm-web': [0.4, 24, 3],
       'crm-php': [6.5, 182, 12],
+      'hosted-shop-web': [3.2, 148, 9],
     };
     for (let i = 0; i < 20; i++) {
       send(
@@ -280,6 +281,39 @@ export const scenes: Scene[] = [
     },
     ready: (page) => page.getByRole('tab', {name: /Last operation|Dernière opération/}).click(),
   },
+  {
+    id: 'hosting-site-overview',
+    path: '/hosting/shop',
+    viewport: {width: 1440, height: 1200},
+    setup: (api, ws) => {
+      mockStats(ws);
+      // The mock returns no container for a site: add the running web container.
+      const detail = (api as unknown as {stackDetail: (s: unknown) => Record<string, unknown>}).stackDetail.bind(api);
+      api.on('GET', '/hosting/stacks/shop', () => ({
+        status: 200,
+        body: {
+          ...detail(api.state.stacks.find((s) => s.name === 'shop')!),
+          containers: [
+            {
+              id: containerId('hosted-shop-web-1'),
+              name: 'hosted-shop-web-1',
+              state: 'running',
+              status: 'Up 3 days',
+              image: 'mirror.gcr.io/webdevops/php-nginx:8.4',
+            },
+          ],
+        },
+      }));
+    },
+    settle: 1500,
+  },
+  {id: 'domains-table', path: '/domains', viewport: {width: 1680, height: 900}},
+  {
+    id: 'domains-graph',
+    path: '/domains',
+    ready: (page) => page.getByText(/^(Graph|Graphe)$/).click(),
+    settle: 1500,
+  },
   {id: 'networks-list', path: '/networks'},
   {
     id: 'networks-create',
@@ -379,6 +413,77 @@ export const scenes: Scene[] = [
       }),
     ready: async (page) => {
       await page.locator('#name').fill('crm');
+      await page.getByRole('button', {name: /^(Create|Créer)$/}).first().click();
+      await page.locator('.ant-modal-container >> visible=true').waitFor();
+    },
+  },
+  {
+    id: 'services-rabbitmq',
+    path: '/services/rabbitmq',
+    setup: (api) => {
+      const postgres = api.state.servicesConfig.engines!.find((e) => e.id === 'postgres')!;
+      api.state.servicesConfig.engines!.push({
+        ...postgres,
+        id: 'rabbitmq',
+        kind: 'messaging',
+        defaultPort: 5672,
+        versions: [
+          {...postgres.versions[0], version: '4.2', image: 'mirror.gcr.io/library/rabbitmq:4.2', supportUntil: '2027-10-31', legacyAuth: false},
+        ],
+      });
+      const pg = api.state.instances.find((i) => i.key === 'postgres-17')!;
+      api.state.instances.push({
+        ...pg,
+        key: 'rabbitmq-4-2',
+        engine: 'rabbitmq',
+        version: '4.2',
+        image: 'mirror.gcr.io/library/rabbitmq:4.2',
+        project: 'svc-rabbitmq-4-2',
+        resources: 2,
+        networks: ['services', 'backend'],
+      });
+      const vhost = (name: string) => ({
+        instance: 'rabbitmq-4-2',
+        engine: 'rabbitmq',
+        version: '4.2',
+        name,
+        managed: true,
+        host: 'svc-rabbitmq-4-2',
+        port: 5672,
+      });
+      api.on('GET', '/services/instances/rabbitmq-4-2/resources', {status: 200, body: [vhost('crm'), vhost('shop')]});
+    },
+  },
+  {
+    id: 'services-create-elasticmq',
+    path: '/services/elasticmq/new',
+    viewport: {width: 1440, height: 1200},
+    ready: async (page) => {
+      await page.locator('#name').fill('jobs');
+    },
+  },
+  {
+    id: 'services-credentials-s3',
+    path: '/services/s3/new',
+    locator: '.ant-modal-container >> visible=true',
+    setup: (api) =>
+      api.on('POST', '/services/resources', {
+        status: 201,
+        body: {
+          resource: {instance: 's3-media', engine: 's3', version: '1.4', name: 'media', managed: true, host: 'svc-s3-media', port: 8080},
+          credentials: [
+            {key: 'endpoint', value: 'http://svc-s3-media:8080'},
+            {key: 'region', value: 'us-east-1'},
+            {key: 'bucket', value: 'media'},
+            {key: 'accessKeyId', value: 'LOCH7QK2V9MWB4TZL8NH'},
+            {key: 'secretAccessKey', value: 'c3JfY6sDg1AeUXk7pQ2vR9mWb4TzL8nHq0Zp5Ty', secret: true},
+            {key: 'pathStyle', value: 'true'},
+          ],
+          instanceCreated: true,
+        },
+      }),
+    ready: async (page) => {
+      await page.locator('#name').fill('media');
       await page.getByRole('button', {name: /^(Create|Créer)$/}).first().click();
       await page.locator('.ant-modal-container >> visible=true').waitFor();
     },

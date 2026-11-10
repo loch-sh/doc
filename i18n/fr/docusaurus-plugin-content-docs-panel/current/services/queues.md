@@ -29,6 +29,8 @@ ElasticMQ n'a **aucune authentification** : tout site présent sur le même rés
 | **Mémoire** | 128 Mo à 1 Go, ou **Personnalisé** jusqu'à 8 Go | 256 Mo |
 | **Limites SQS** | **Strictes** : les mêmes limites qu'Amazon SQS, ce qui fonctionne ici fonctionne sur AWS. **Assouplies** : messages plus gros et délais plus longs (développement, migrations) | **Strictes** |
 
+<Screenshot id="services-create-elasticmq" alt="La page Nouvelle instance ElasticMQ avec les avertissements sur l'absence d'authentification et les limites SQS" />
+
 ```bash
 loch services create jobs --engine elasticmq --version 1.7 --network shop
 ```

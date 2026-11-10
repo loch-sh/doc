@@ -109,6 +109,8 @@ Click **Details** on a site. The page has five tabs:
 | **Compose** | The generated `compose.yaml`, read-only, and the **Routing rules** used by the web server |
 | **Last operation** | Type, state, duration and Docker Compose output of the last deployment |
 
+<Screenshot id="hosting-site-overview" alt="The Overview tab of a site with its settings, live resource usage and containers" />
+
 ## Update a website
 
 1. Open the site, tab **Settings**.
