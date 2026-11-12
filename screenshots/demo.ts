@@ -2,6 +2,7 @@
  * Demo data shown in the screenshots, on top of the interface's mock fixtures.
  * Everything is invented: example.com domains, private addresses only.
  */
+import {createHash} from 'node:crypto';
 import type {MockApi} from './.interface/tests/mocks/api';
 import {hostingStack} from './.interface/tests/mocks/fixtures';
 
@@ -14,13 +15,72 @@ const COMPOSE = 'com.docker.compose.project';
 
 type Labels = Record<string, string>;
 
+interface Port {
+  IP?: string;
+  PrivatePort: number;
+  PublicPort?: number;
+  Type: string;
+}
+interface Mount {
+  Type: string;
+  Name?: string;
+  Source: string;
+  Destination: string;
+  Mode: string;
+  RW: boolean;
+  Propagation: string;
+}
+
+/** Compose labels of a project deployed from /data/stacks/<stack>. */
+const composeLabels = (stack: string, dependsOn: string[] = []): Labels => ({
+  'com.docker.compose.project.working_dir': `/data/stacks/${stack}`,
+  'com.docker.compose.project.config_files': `/data/stacks/${stack}/compose.yaml`,
+  'com.docker.compose.version': '2.40.3',
+  ...(dependsOn.length && {
+    'com.docker.compose.depends_on': dependsOn.map((d) => `${d}:service_started:false`).join(','),
+  }),
+});
+
+const bind = (source: string, destination: string, rw = true): Mount => ({
+  Type: 'bind',
+  Source: source,
+  Destination: destination,
+  Mode: rw ? 'rw' : 'ro',
+  RW: rw,
+  Propagation: 'rprivate',
+});
+const volume = (name: string, destination: string): Mount => ({
+  Type: 'volume',
+  Name: name,
+  Source: `/var/lib/docker/volumes/${name}/_data`,
+  Destination: destination,
+  Mode: 'z',
+  RW: true,
+  Propagation: '',
+});
+
 const container = (
   stack: string,
   service: string,
   image: string,
-  {state = 'running', status, labels = {}}: {state?: string; status?: string; labels?: Labels} = {},
+  {
+    state = 'running',
+    status,
+    labels = {},
+    ports = [],
+    networks = {[`${stack}_default`]: ''},
+    mounts = [],
+  }: {
+    state?: string;
+    status?: string;
+    labels?: Labels;
+    ports?: Port[];
+    /** Network name → IPv4 address of the container. */
+    networks?: Record<string, string>;
+    mounts?: Mount[];
+  } = {},
 ) => ({
-  Id: Buffer.from(`${stack}-${service}`).toString('hex').padEnd(64, '0').slice(0, 64),
+  Id: createHash('sha256').update(`${stack}-${service}`).digest('hex'),
   Names: [`/${stack}-${service}-1`],
   Image: image,
   ImageID: '',
@@ -28,11 +88,15 @@ const container = (
   Created: created,
   State: state,
   Status: status ?? (state === 'running' ? 'Up 3 days' : 'Exited (0) 2 hours ago'),
-  Ports: [],
+  Ports: ports,
   Labels: {[COMPOSE]: stack, 'com.docker.compose.service': service, ...labels},
-  HostConfig: {NetworkMode: `${stack}_default`},
-  NetworkSettings: {Networks: {}},
-  Mounts: [],
+  HostConfig: {NetworkMode: Object.keys(networks)[0]},
+  NetworkSettings: {
+    Networks: Object.fromEntries(
+      Object.entries(networks).map(([net, ip]) => [net, {IPAddress: ip, NetworkID: net, Gateway: '', MacAddress: ''}]),
+    ),
+  },
+  Mounts: mounts,
 });
 
 const hosted = {'sh.loch.managed': 'true'};
@@ -42,11 +106,33 @@ export const demoContainers = [
   container('hosted-shop', 'web', 'mirror.gcr.io/webdevops/php-nginx:8.4', {labels: hosted}),
   container('hosted-blog', 'web', 'mirror.gcr.io/webdevops/php-apache:8.3', {labels: hosted}),
   container('hosted-docs', 'web', 'mirror.gcr.io/library/nginx:1.29-alpine', {labels: hosted}),
-  container('crm', 'web', 'mirror.gcr.io/library/nginx:1.29-alpine'),
-  container('crm', 'php', 'mirror.gcr.io/webdevops/php-fpm:8.4'),
+  container('crm', 'web', 'mirror.gcr.io/library/nginx:1.29-alpine', {
+    labels: composeLabels('crm', ['php']),
+    ports: [
+      {IP: '127.0.0.1', PrivatePort: 80, PublicPort: 8081, Type: 'tcp'},
+      {PrivatePort: 443, Type: 'tcp'},
+    ],
+    networks: {crm_default: '172.20.0.4', traefik: '172.18.0.7'},
+    mounts: [bind('/data/stacks/crm/app', '/app', false), bind('/data/stacks/crm/nginx.conf', '/etc/nginx/conf.d/default.conf', false)],
+  }),
+  container('crm', 'php', 'mirror.gcr.io/webdevops/php-fpm:8.4', {
+    labels: composeLabels('crm', ['db']),
+    ports: [{PrivatePort: 9000, Type: 'tcp'}],
+    networks: {crm_default: '172.20.0.3', services: '172.19.0.12'},
+    mounts: [bind('/data/stacks/crm/app', '/app'), volume('crm_sessions', '/var/lib/php/sessions')],
+  }),
   container('crm', 'worker', 'mirror.gcr.io/webdevops/php:8.4', {
     state: 'exited',
     status: 'Exited (1) 2 hours ago',
+    labels: composeLabels('crm', ['php', 'db']),
+    networks: {crm_default: '', services: ''},
+    mounts: [bind('/data/stacks/crm/app', '/app')],
+  }),
+  container('crm', 'db', 'mirror.gcr.io/library/mariadb:11.8', {
+    labels: composeLabels('crm'),
+    ports: [{PrivatePort: 3306, Type: 'tcp'}],
+    networks: {crm_default: '172.20.0.2'},
+    mounts: [volume('crm_db', '/var/lib/mysql')],
   }),
   container('monitoring', 'grafana', 'mirror.gcr.io/grafana/grafana:12.2.0'),
   container('monitoring', 'prometheus', 'mirror.gcr.io/prom/prometheus:v3.6.0'),
@@ -65,12 +151,19 @@ function inspect(id: string) {
   const c = demoContainers.find((x) => x.Id === id || x.Id.startsWith(id));
   if (!c) return undefined;
   const running = c.State === 'running';
+  const exitCode = Number(/Exited \((\d+)\)/.exec(c.Status)?.[1] ?? 0);
+  const startedAt = new Date(c.Created * 1000).toISOString();
+  const portMap: Record<string, {HostIp: string; HostPort: string}[] | null> = {};
+  for (const p of c.Ports) {
+    const key = `${p.PrivatePort}/${p.Type}`;
+    portMap[key] = p.PublicPort ? [{HostIp: p.IP ?? '0.0.0.0', HostPort: String(p.PublicPort)}] : null;
+  }
   return {
     Id: c.Id,
     Name: c.Names[0],
     Created: new Date(c.Created * 1000).toISOString(),
     Image: 'sha256:4f2a9c1e7b3d8a6f5e0c2b9d7a1e3f6c8b0d2e4f6a8c0e2b4d6f8a0c2e4b6d8f',
-    RestartCount: 0,
+    RestartCount: running ? 0 : 3,
     HostsPath: `/var/lib/docker/containers/${c.Id}/hosts`,
     LogPath: `/var/lib/docker/containers/${c.Id}/${c.Id}-json.log`,
     State: {
@@ -78,16 +171,13 @@ function inspect(id: string) {
       Running: running,
       Paused: false,
       Restarting: false,
-      ExitCode: running ? 0 : 1,
-      StartedAt: new Date(c.Created * 1000).toISOString(),
-      FinishedAt: '0001-01-01T00:00:00Z',
+      ExitCode: exitCode,
+      StartedAt: startedAt,
+      FinishedAt: running ? '0001-01-01T00:00:00Z' : new Date(now - 2 * 3_600_000).toISOString(),
     },
     Config: {Image: c.Image, Labels: c.Labels, Tty: true, Env: []},
-    NetworkSettings: {Ports: {'80/tcp': null}, Networks: {}},
-    Mounts: [
-      {Type: 'bind', Source: '/data/crm/app', Destination: '/app', Mode: 'rw', RW: true},
-      {Type: 'volume', Name: 'crm_sessions', Source: '/var/lib/docker/volumes/crm_sessions/_data', Destination: '/var/lib/php/sessions', RW: true},
-    ],
+    NetworkSettings: {Ports: portMap, Networks: c.NetworkSettings.Networks},
+    Mounts: c.Mounts,
   };
 }
 

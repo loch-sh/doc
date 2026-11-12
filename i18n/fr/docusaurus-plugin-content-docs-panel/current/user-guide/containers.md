@@ -35,22 +35,27 @@ La colonne **Actions** affiche les boutons qui correspondent à l'état du conte
 | **Terminal détaché** | Le conteneur tourne | Non : ouvre un terminal dans une fenêtre popup |
 | **Détail et terminal** | Toujours | Non : ouvre le panneau de détail |
 
-Pour agir sur tous les conteneurs d'une stack d'un coup, voir [Actions sur une stack](./stacks.md).
+Pour voir une stack entière ou agir sur tous ses conteneurs d'un coup, voir [Stacks](./stacks.md).
 
-## Détail, logs et terminal
+## Détail d'un conteneur
 
-Cliquez sur **Détail et terminal** pour ouvrir le panneau **Détail conteneur**.
+Cliquez sur **Détail et terminal** pour ouvrir le panneau du conteneur. Son en-tête affiche l'état, le nom et l'image, puis des tags (état, santé, code de sortie, stack) et quatre chiffres : durée de fonctionnement (ou d'arrêt), redémarrages, ports publiés et montages.
 
-<Screenshot id="container-details" alt="Le panneau de détails d'un conteneur avec les logs en temps réel et un terminal ouvert" />
+<Screenshot id="container-details" alt="Le panneau d'un conteneur sur l'onglet Aperçu" />
 
-| Section | Contenu |
+| Onglet | Contenu |
 |---|---|
-| Détail | Projet compose, identifiant, image, état, date de démarrage, nombre de redémarrages, réseau, points de montage |
-| **Chemin logs** | **Télécharger** le log complet du conteneur |
-| **Logs en temps réel** | **Afficher les logs** affiche les 100 dernières lignes, puis les nouvelles |
-| **Terminal interactif docker** | **Ouvrir un terminal** lance `/bin/sh` dans le conteneur ; **Détacher** le déplace dans une popup |
+| **Aperçu** | Identifiant, image et digest, dates de démarrage et de création, chemin physique ; **Télécharger** le log complet du conteneur |
+| **Réseau** | Réseaux connectés avec l'adresse du conteneur, puis les ports et leurs liaisons sur l'hôte |
+| **Montages** | Type, source et destination de chaque montage |
+| **Logs** | Les 100 dernières lignes, puis les nouvelles au fil de l'eau |
+| **Terminal** | **Ouvrir un terminal** lance `/bin/sh` dans le conteneur ; **Détacher dans une popup** le déplace dans sa propre fenêtre |
 
-**Plein écran** élargit le panneau. **Console uniquement** masque le détail et garde le terminal.
+Les logs et le terminal ne se chargent qu'à l'ouverture de leur onglet.
+
+**Console uniquement** (en haut à droite) masque tout sauf le terminal ; la session shell est conservée quand vous revenez en arrière. **Plein écran** élargit le panneau.
+
+<Screenshot id="container-terminal" alt="Le panneau d'un conteneur en mode Console uniquement, avec un shell ouvert" />
 
 ## Consommation des ressources
 

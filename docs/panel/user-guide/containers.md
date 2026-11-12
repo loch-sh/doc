@@ -35,22 +35,27 @@ The **Actions** column shows the buttons that match the container's state.
 | **Detached terminal** | Running | No: opens a terminal in a popup window |
 | **Details and terminal** | Always | No: opens the details panel |
 
-To act on every container of a stack at once, see [Stack actions](./stacks.md).
+To see a whole stack or act on all its containers at once, see [Stacks](./stacks.md).
 
-## Details, logs and terminal
+## Container details
 
-Click **Details and terminal** to open the **Container details** panel.
+Click **Details and terminal** to open the container panel. Its header shows the state, the name and the image, then tags (state, health, exit code, stack) and four figures: uptime (or time stopped), restarts, published ports and mounts.
 
-<Screenshot id="container-details" alt="The container details panel with live logs and an open terminal" />
+<Screenshot id="container-details" alt="The container panel on its Overview tab" />
 
-| Section | Content |
+| Tab | Content |
 |---|---|
-| Details | Compose project, identifier, image, state, start date, restart count, network, mount points |
-| **Log path** | **Download** the full container log |
-| **Live logs** | **Show logs** streams the last 100 lines, then new ones |
-| **Interactive Docker terminal** | **Open a terminal** starts `/bin/sh` in the container; **Detach** moves it to a popup |
+| **Overview** | Identifier, image and digest, start and creation dates, host path; **Download** the full container log |
+| **Network** | Attached networks with the container's address, then the ports and their host bindings |
+| **Mounts** | Type, source and destination of each mount |
+| **Logs** | The last 100 lines, then new ones as they arrive |
+| **Terminal** | **Open a terminal** starts `/bin/sh` in the container; **Detach in a popup** moves it to its own window |
 
-**Full screen** widens the panel. **Console only** hides the details and keeps the terminal.
+Logs and terminal load only when you open their tab.
+
+**Console only** (top right) hides everything but the terminal; the shell session survives when you toggle back. **Full screen** widens the panel.
+
+<Screenshot id="container-terminal" alt="The container panel in Console only mode, with an open shell" />
 
 ## Resource usage
 

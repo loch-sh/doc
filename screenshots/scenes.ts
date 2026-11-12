@@ -40,7 +40,24 @@ async function openDetails(page: Page, container: string) {
     .last()
     .locator('button:has(.anticon-info-circle)')
     .click();
-  await page.locator('.ant-drawer-body .ant-list').waitFor();
+  await page.locator('.ant-drawer-body .ant-tabs').waitFor();
+  await page.mouse.move(0, 0);
+}
+
+/** Widens the open panel to the full screen. */
+async function fullScreen(page: Page) {
+  await page.locator('.ant-drawer').getByRole('button', {name: /^(Full screen|Plein écran)$/}).click();
+  await page.mouse.move(0, 0);
+}
+
+/** Opens the details panel of a stack of the Containers page. */
+async function openStack(page: Page, stack: string) {
+  await page
+    .locator(`tr[data-row-key="${stack}"]`)
+    .getByRole('button', {name: /^(Stack details|Détail de la stack)$/})
+    .click();
+  await page.locator('.ant-drawer-body .ant-tabs').waitFor();
+  await page.mouse.move(0, 0);
 }
 
 const LOG_LINES = [
@@ -82,6 +99,7 @@ function mockStats(ws: WsMock) {
       'crm-web': [0.4, 24, 3],
       'crm-php': [6.5, 182, 12],
       'hosted-shop-web': [3.2, 148, 9],
+      'crm-db': [1.8, 236, 28],
     };
     for (let i = 0; i < 20; i++) {
       send(
@@ -191,17 +209,43 @@ export const scenes: Scene[] = [
   {
     id: 'container-details',
     path: '/containers',
-    viewport: {width: 1440, height: 1100},
+    viewport: {width: 1440, height: 1000},
+    ready: async (page) => {
+      await expandStack(page, 'crm');
+      await openDetails(page, 'php-1');
+    },
+  },
+  {
+    id: 'container-terminal',
+    path: '/containers',
+    viewport: {width: 1440, height: 1000},
     setup: (_api, ws) => mockLogsAndTerminal(ws),
     ready: async (page) => {
       await expandStack(page, 'crm');
       await openDetails(page, 'php-1');
-      await page.getByRole('button', {name: /Console only|Console uniquement/}).click();
-      await page.getByRole('button', {name: /Show logs|Afficher les logs/}).click();
-      await page.getByRole('button', {name: /Open a terminal|Ouvrir un terminal/}).click();
-      await page.locator('.xterm-rows').nth(1).waitFor();
+      await page.getByRole('button', {name: /^(Console only|Console uniquement)$/}).click();
+      await page.mouse.move(0, 0);
+      await page.locator('.ant-drawer-body .xterm-rows').first().waitFor();
     },
     settle: 1200,
+  },
+  {
+    id: 'stack-panel',
+    path: '/containers',
+    viewport: {width: 1440, height: 1000},
+    ready: async (page) => {
+      await openStack(page, 'crm');
+      await fullScreen(page);
+    },
+  },
+  {
+    id: 'stack-panel-compose',
+    path: '/containers',
+    viewport: {width: 1440, height: 1000},
+    ready: async (page) => {
+      await openStack(page, 'crm');
+      await page.locator('.ant-drawer-body').getByRole('tab', {name: 'Compose'}).click();
+    },
   },
   {
     id: 'cron-list',
