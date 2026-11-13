@@ -45,7 +45,7 @@ The [`example/`](https://github.com/loch-sh/panel/tree/main/example) folder of t
 | `minimal` | Traefik, panel (plugins off) | Stacks are deployed by other means (by hand, over SSH) |
 | `web-build` | `web`, with the API and the interface built from the local sources | Testing a change of the panel in a full stack. **Not for production.** |
 
-Each example has the same files: `compose.yaml` (never edit it), `.env.example`, `app.env.example` and `up.sh`. The panel images are `ghcr.io/loch-sh/panel/api` and `ghcr.io/loch-sh/panel/interface`, pinned to a release (`v1.1.0`).
+Each example has the same files: `compose.yaml` (never edit it), `.env.example`, `app.env.example` and `up.sh`. The panel images are `ghcr.io/loch-sh/panel/api` and `ghcr.io/loch-sh/panel/interface`, each pinned to its own release (API `v1.1.0`, interface `v1.1.1`).
 
 ### 1. Configure
 
@@ -129,7 +129,7 @@ Use this path to integrate the panel into an existing reverse proxy.
 
 ### 1. Get the images
 
-Use the published images, `ghcr.io/loch-sh/panel/api:v1.1.0` and `ghcr.io/loch-sh/panel/interface:v1.1.0`, or build them: each project ships a multi-stage Dockerfile, with base images pulled from `mirror.gcr.io`.
+Use the published images, `ghcr.io/loch-sh/panel/api:v1.1.0` and `ghcr.io/loch-sh/panel/interface:v1.1.1`, or build them: each project ships a multi-stage Dockerfile, with base images pulled from `mirror.gcr.io`.
 
 ```bash
 # In host-panel-api/
@@ -182,7 +182,7 @@ services:
       # - /data/websites/hosted:/data/websites/hosted
 
   interface:
-    image: ghcr.io/loch-sh/panel/interface:v1.1.0
+    image: ghcr.io/loch-sh/panel/interface:v1.1.1
     restart: unless-stopped
     ports:
       - "8080:80"

@@ -91,6 +91,7 @@ Run from `host-panel-cli`:
 |---|---|
 | API | `go test ./...` |
 | Interface | `yarn lint`, `yarn typecheck`, `yarn i18n:check`, `yarn test`, `yarn build`; then `yarn test:e2e` |
+| Repository | `secrets`: gitleaks on the whole history, on every pull request. Run it locally with `make secrets` (false positives: `.gitleaksignore`) |
 
 ## Good to know
 
