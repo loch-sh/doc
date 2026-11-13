@@ -14,7 +14,7 @@ Admin only. Requires a running [SFTPGo](https://github.com/drakkan/sftpgo) and `
 
 ## Enable the module
 
-1. In the SFTPGo admin interface, create an admin API key.
+1. Create an SFTPGo admin API key. The SFTPGo web admin has no "API keys" page: enable **API key authentication** in the admin's profile, then create the key with the REST API (`POST /api/v2/apikeys`). With the [Docker Compose examples](../admin/installation.md#sftpgo-key), `up.sh` does it for you.
 2. Add the variables to the API `.env`:
 
    ```env
